@@ -1,0 +1,22 @@
+{
+  "name": "you-wanna-bet",
+  "version": "1.0.0",
+  "description": "whats a bet between friends",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/operationcream/YouWannaBet.git"
+  },
+  "keywords": [
+    "friends"
+  ],
+  "author": "C.R.E.A.M at OpSpark",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/operationcream/YouWannaBet/issues"
+  },
+  "homepage": "https://github.com/operationcream/YouWannaBet#readme"
+}
