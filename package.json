@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/operationcream/YouWannaBet/issues"
   },
-  "homepage": "https://github.com/operationcream/YouWannaBet#readme"
+  "homepage": "https://github.com/operationcream/YouWannaBet#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
