@@ -9,16 +9,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
+      games: [],
     };
-    this.getItems = this.getItems.bind(this);
+    this.getGames = this.getGames.bind(this);
   }
 
   componentDidMount() {
-    this.getItems()
+    this.getGames()
       .then((data) => {
         this.setState({
-          items: data,
+          games: data,
         });
       })
       .catch((err) => {
@@ -26,8 +26,8 @@ class App extends React.Component {
       });
   }
 
-  getItems() {
-    return axios.get('/items')
+  getGames() {
+    return axios.get('/games')
       .then(({ data }) => data);
   }
 
@@ -35,13 +35,13 @@ class App extends React.Component {
     return (
       <div>
         <div className="col-md-6 offset-md-3">
-          <h1>Item List</h1>
-          <List items={this.state.items} />
+          <h1>Team List</h1>
+          <List items={this.state.games} />
         </div>
         {/* Places the two search bars.  getGames HELPER FUNCTION not yet built */}
         <div className="col-md-6 offset-md-3">
           <Search
-            handleSearchInputChange={this.getGames.bind(this)}
+            handleSearchInputChange={this.getGames}
           />
         </div>
       </div>
