@@ -1,6 +1,6 @@
 // https://docs.feathersjs.com/api/express.html
 // check out docs for more info
-
+require('dotenv').config();
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 
