@@ -8,6 +8,12 @@ const db = require('../database');
 const app = express(feathers());
 const port = process.env.PORT || 3000;
 
+app.use(express.static('client/dist'));
+
+app.get('/', (req, res) => {
+  res.send('hello world!');
+});
+
 app.get('/api/users', (req, res) => {
   // TODO - your code here!
   // use db.getallphrases function to get all phrases
