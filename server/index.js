@@ -31,4 +31,9 @@ app.use('/test', (req, res, next) => {
   });
 });
 
+// Testing the get function //
+app.get('/', (req, res) => {
+  res.end('Hello from Feathers');
+});
+
 app.listen(port, () => console.log(`listening on port ${port}!`));
