@@ -25,8 +25,8 @@ class Search extends React.Component {
           value={this.state.value}
           onChange={this.handleInputChange.bind(this)}
         />
-        <button type="submit" className="btn serch-team">
-          <span className="search-team" />
+        <button type="submit" size="lg" className="btn search-team">
+          <span className="search-team" /> By Team
         </button>
         <input
           className="form-control"
@@ -34,8 +34,8 @@ class Search extends React.Component {
           value={this.state.value}
           onChange={this.handleInputChange.bind(this)}
         />
-        <button type="submit" className="btn serch-date">
-          <span className="search-date" />
+        <button type="submit" size="lg" className="btn search-date">
+          <span className="search-date" /> By Date
         </button>
       </div>
     );
