@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // check out https://node-postgres.com/
 // for docs
 
@@ -14,14 +16,44 @@
 
 
 // callback method /////////
-const { Client } = require('pg');
+const pg = require('pg');
 
-const client = new Client();
+const config = {
+  user: process.env.DB_USERNAME,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: 5432,
+  max: 10,
+};
 
-client.connect();
+const pool = new pg.Pool(config);
 
-client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
-  console.log(err ? err.stack : res.rows[0].message);
-  // Hello World!
-  client.end();
+pool.connect((error) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('database connected');
+  }
 });
+
+const getAllUsers = (callback) => {
+  pool.query('SELECT * FROM app_user', (error, response) => {
+    console.log(response.rows);
+    if (error) {
+      callback(error, null);
+    } else {
+      callback(null, response.rows);
+    }
+  });
+};
+
+// client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
+//   console.log(err ? err.stack : res.rows[0].message);
+//   // Hello World!
+//   client.end();
+// });
+
+module.exports = {
+  getAllUsers,
+};
