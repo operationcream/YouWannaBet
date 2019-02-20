@@ -3,9 +3,34 @@
 require('dotenv').config();
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
+const db = require('../database');
 
 const app = express(feathers());
 const port = process.env.PORT || 3000;
+
+app.use(express.static('client/dist'));
+
+app.get('/', (req, res) => {
+  res.send('hello world!');
+});
+
+app.get('/api/users', (req, res) => {
+  // TODO - your code here!
+  // use db.getallphrases function to get all phrases
+  db.getAllUsers((error, response) => {
+    // if error
+    if (error) {
+      // console.log error
+      console.error(error);
+      // send 500 status code
+      res.sendStatus(500);
+    } else {
+      // if no error
+      // send back query results in res.send
+      res.send(response);
+    }
+  });
+});
 
 // Register a service
 app.use('/todos', {

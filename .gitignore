@@ -6,4 +6,9 @@ build/
 dist/
 package-lock.json
 
+<<<<<<< HEAD
 .env
+=======
+# environmental variables
+.env 
+>>>>>>> 7e5b29eb32c34dd605398ac435449353006e4c08
