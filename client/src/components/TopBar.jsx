@@ -1,9 +1,10 @@
 import React from 'react';
 
-const TopBar = props => (
+const TopBar = ({ changeView }) => (
   <div>
-    <button >Search</button>
-    <button >Sign out</button>
+    <button onClick={ ()=> { changeView('search') } }>Search</button>
+    <button onClick={ ()=> { changeView('dashboard') } }>Dashboard</button>
+
   </div>
 );
 
