@@ -2,27 +2,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import List from './components/List.jsx';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Search from './components/searchGames.jsx';
 import Login from './components/Login.jsx';
 import Dashboard from './components/Dashboard.jsx';
-import { BrowserRouter, Route } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
-      loggedIn: false,
     };
-    this.getItems = this.getItems.bind(this);
+    this.getGames = this.getGames.bind(this);
   }
 
   componentDidMount() {
-    this.getItems()
+    this.getGames()
       .then((data) => {
         this.setState({
-          items: data,
+          games: data,
         });
       })
       .catch((err) => {
@@ -30,8 +27,8 @@ class App extends React.Component {
       });
   }
 
-  getItems() {
-    return axios.get('/items')
+  getGames() {
+    return axios.post('/api/games')
       .then(({ data }) => data);
   }
 
@@ -46,11 +43,9 @@ class App extends React.Component {
           <Dashboard />
         </div>
         {/* Places the two search bars.  getGames HELPER FUNCTION not yet built */}
-        <div className="col-md-6 offset-md-3">
+        <div id="Search" className="col-md-6 offset-md-3">
           <h1>Search</h1>
-          <Search
-            // handleSearchInputChange={this.getGames.bind(this)}
-          />
+          <Search />
         </div>
       </div>
     );

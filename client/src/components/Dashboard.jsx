@@ -2,7 +2,6 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Route } from 'react-router-dom';
-import List from './List.jsx';
 import Search from './searchGames.jsx';
 import TopBar from './TopBar.jsx';
 import User from './User.jsx';
