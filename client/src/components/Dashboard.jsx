@@ -9,7 +9,7 @@ class Dashboard extends React.Component {
     this.state = {
       items: [],
     };
-    // this.getItems = this.getItems.bind(this);
+    this.getItems = this.getItems.bind(this);
   }
 
   componentDidMount() {

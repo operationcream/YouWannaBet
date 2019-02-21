@@ -11,7 +11,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      games: ['Pelicans', 'Hawks'],
     };
     this.getGames = this.getGames.bind(this);
   }
@@ -29,7 +28,7 @@ class App extends React.Component {
   }
 
   getGames() {
-    return axios.get('/api/games')
+    return axios.post('/api/games')
       .then(({ data }) => data);
   }
 
@@ -44,11 +43,9 @@ class App extends React.Component {
           <Dashboard />
         </div>
         {/* Places the two search bars.  getGames HELPER FUNCTION not yet built */}
-        <div className="col-md-6 offset-md-3">
+        <div id="Search" className="col-md-6 offset-md-3">
           <h1>Search</h1>
-          <Search
-            handleSearchInputChange={this.getGames}
-          />
+          <Search />
         </div>
       </div>
     );

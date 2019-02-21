@@ -35,15 +35,8 @@ app.get('/api/users', (req, res) => {
 
 // Games Endpoint
 app.post('/api/games', (req, res) => {
-  // use db.getallphrases function to get all phrases
-  return axios
-    .get(organizationPath + organizationID)
-    .then((response) => {
-      const organizationData = response.data.data;
-      return organizationData;
-    })
-    .catch(err => console.error(err));
-
+  // use db.getALlGames
+  res.json('Search Hit Endpoint');
 });
 
 
