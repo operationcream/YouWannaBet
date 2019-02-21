@@ -9,7 +9,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      games: [],
+      games: ['Pelicans', 'Hawks'],
     };
     this.getGames = this.getGames.bind(this);
   }
@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   getGames() {
-    return axios.get('/games')
+    return axios.get('/api/games')
       .then(({ data }) => data);
   }
 

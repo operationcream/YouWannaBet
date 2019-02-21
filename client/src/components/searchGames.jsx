@@ -23,7 +23,7 @@ class Search extends React.Component {
           className="form-control"
           type="text"
           value={this.state.value}
-          onChange={this.handleInputChange.bind(this)}
+          // onChange={this.handleInputChange.bind(this)}
         />
         <button type="submit" size="lg" className="btn search-team">
           <span className="search-team" /> By Team

@@ -3,6 +3,7 @@
 
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
+const axios = require('axios');
 const db = require('../database');
 
 const app = express(feathers());
@@ -31,6 +32,20 @@ app.get('/api/users', (req, res) => {
     }
   });
 });
+
+// Games Endpoint
+app.post('/api/games', (req, res) => {
+  // use db.getallphrases function to get all phrases
+  return axios
+    .get(organizationPath + organizationID)
+    .then((response) => {
+      const organizationData = response.data.data;
+      return organizationData;
+    })
+    .catch(err => console.error(err));
+
+});
+
 
 // Register a service
 app.use('/todos', {
