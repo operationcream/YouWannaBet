@@ -5,6 +5,7 @@ import axios from 'axios';
 import List from './components/List.jsx';
 import Search from './components/searchGames.jsx';
 import Login from './components/Login.jsx';
+import Dashboard from './components/Dashboard.jsx';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 class App extends React.Component {
@@ -42,11 +43,11 @@ class App extends React.Component {
           <Login />
         </div>
         <div className="col-md-6 offset-md-3">
-          <h1>Item List</h1>
-          <List items={this.state.items} />
+          <Dashboard />
         </div>
         {/* Places the two search bars.  getGames HELPER FUNCTION not yet built */}
         <div className="col-md-6 offset-md-3">
+          <h1>Search</h1>
           <Search
             // handleSearchInputChange={this.getGames.bind(this)}
           />
