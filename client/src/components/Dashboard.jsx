@@ -1,7 +1,6 @@
 /* eslint import/extensions: 0 */
 import React from 'react';
 import axios from 'axios';
-import List from './List.jsx';
 import Search from './searchGames.jsx';
 
 class Dashboard extends React.Component {
@@ -10,7 +9,7 @@ class Dashboard extends React.Component {
     this.state = {
       items: [],
     };
-    // this.getItems = this.getItems.bind(this);
+    this.getItems = this.getItems.bind(this);
   }
 
   componentDidMount() {
