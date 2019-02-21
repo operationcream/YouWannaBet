@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import List from './components/List.jsx';
+import UserForm from './components/signup-login/UserForm.jsx';
 import Search from './components/searchGames.jsx';
 
 class App extends React.Component {
@@ -40,9 +41,12 @@ class App extends React.Component {
         </div>
         {/* Places the two search bars.  getGames HELPER FUNCTION not yet built */}
         <div className="col-md-6 offset-md-3">
-          <Search
-            handleSearchInputChange={this.getGames.bind(this)}
-          />
+          {/* <Search
+            handleSearchInputChange = {this.getGames.bind(this)}
+          /> */}
+        </div>
+        <div className="col-md-6 offset-md-3">
+          <UserForm />
         </div>
       </div>
     );
