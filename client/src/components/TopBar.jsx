@@ -1,10 +1,18 @@
 import React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { AppBar, Toolbar } from 'material-ui';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+// import Button from '@material-ui/core/Button';
 
 const TopBar = ({ changeView }) => (
   <div>
-    <button onClick={ ()=> { changeView('search') } }>Search</button>
-    <button onClick={ ()=> { changeView('dashboard') } }>Dashboard</button>
-
+    <MuiThemeProvider>
+      <AppBar>
+        <button className="button" onClick={() => { changeView('search'); }}>Search</button>
+        <button className="button" onClick={() => { changeView('dashboard'); }}>Dashboard</button> 
+      </AppBar>
+    </MuiThemeProvider>
   </div>
 );
 

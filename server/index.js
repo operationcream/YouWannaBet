@@ -3,7 +3,6 @@
 require('dotenv').config();
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
-const axios = require('axios');
 const db = require('../database');
 
 const app = express(feathers());
@@ -33,13 +32,6 @@ app.get('/api/users', (req, res) => {
   });
 });
 
-// Games Endpoint
-app.post('/api/games', (req, res) => {
-  // use db.getALlGames
-  res.json('Search Hit Endpoint');
-});
-
-
 // Register a service
 app.use('/todos', {
   get(id) {
@@ -62,11 +54,6 @@ app.use('/test', (req, res, next) => {
   res.json({
     message: `Hello world from Express middleware ${res.data}`,
   });
-});
-
-// Testing the get function //
-app.get('/', (req, res) => {
-  res.end('Hello from Feathers');
 });
 
 app.listen(port, () => console.log(`listening on port ${port}!`));

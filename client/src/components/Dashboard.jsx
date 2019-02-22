@@ -2,6 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Route } from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Search from './searchGames.jsx';
 import TopBar from './TopBar.jsx';
 import User from './User.jsx';
@@ -11,21 +12,23 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       view: 'dashboard',
+      userBets: [],
     };
     // this.getItems = this.getItems.bind(this);
     this.changeView = this.changeView.bind(this);
   }
 
   componentDidMount() {
-    // this.getItems()
-    //   .then((data) => {
-    //     this.setState({
-    //       items: data,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log('err', err);
-    //   });
+    axios.get('/api/userBets')
+      .then((userBet) => {
+        this.setState({
+          userBets: userBet,
+        });
+        console.log('successfully mounted')
+      })
+      .catch((err) => {
+        console.log(err, 'not mounting');
+      });
   }
 
   changeView(option) {
@@ -41,13 +44,13 @@ class Dashboard extends React.Component {
   // }
 
   render() {
-    const { view } = this.state;
+    const { view, userBets } = this.state;
     return (
       <div>
         <h1>DashBoard</h1>
         <TopBar changeView={this.changeView} />
         { view === 'dashboard'
-          ? <User />
+          ? <User userBets={userBets} />
           : <Search />
         }
       </div>
