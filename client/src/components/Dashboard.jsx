@@ -1,8 +1,6 @@
 /* eslint import/extensions: 0 */
 import React from 'react';
 import axios from 'axios';
-import List from './List.jsx';
-import Search from './searchGames.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -14,15 +12,16 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    this.getItems()
-      .then((data) => {
-        this.setState({
-          items: data,
-        });
-      })
-      .catch((err) => {
-        console.log('err', err);
-      });
+    console.log(this.state.items);
+    // this.getItems()
+    //   .then((data) => {
+    //     this.setState({
+    //       items: data,
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     console.log('err', err);
+    //   });
   }
 
   getItems() {
