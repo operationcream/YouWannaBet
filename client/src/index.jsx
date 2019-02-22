@@ -1,7 +1,6 @@
 /* eslint import/extensions: 0 */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Search from './components/searchGames.jsx';
 import Login from './components/Login.jsx';
@@ -12,24 +11,6 @@ class App extends React.Component {
     super(props);
     this.state = {
     };
-    this.getGames = this.getGames.bind(this);
-  }
-
-  componentDidMount() {
-    this.getGames()
-      .then((data) => {
-        this.setState({
-          games: data,
-        });
-      })
-      .catch((err) => {
-        console.log('err', err);
-      });
-  }
-
-  getGames() {
-    return axios.post('/api/games')
-      .then(({ data }) => data);
   }
 
   render() {
