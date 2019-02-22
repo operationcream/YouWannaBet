@@ -1,10 +1,14 @@
 /* eslint import/extensions: 0 */
 import React from 'react';
 import ReactDOM from 'react-dom';
+<<<<<<< HEAD
 import axios from 'axios';
 import {
   BrowserRouter, Route, Switch, Router, HashRouter,
 } from 'react-router-dom';
+=======
+import { BrowserRouter, Route } from 'react-router-dom';
+>>>>>>> 102027d0c1e75638598f6ff435c45bdb8140d341
 import Search from './components/searchGames.jsx';
 import Login from './components/Login.jsx';
 import Dashboard from './components/Dashboard.jsx';
@@ -15,24 +19,6 @@ class App extends React.Component {
     this.state = {
       isLoggedIn: false,
     };
-    this.getGames = this.getGames.bind(this);
-  }
-
-  componentDidMount() {
-    this.getGames()
-      .then((data) => {
-        this.setState({
-          games: data,
-        });
-      })
-      .catch((err) => {
-        console.log('err', err);
-      });
-  }
-
-  getGames() {
-    return axios.post('/api/games')
-      .then(({ data }) => data);
   }
 
   render() {

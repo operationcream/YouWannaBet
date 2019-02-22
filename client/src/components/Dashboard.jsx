@@ -31,11 +31,17 @@ class Dashboard extends React.Component {
       });
   }
 
+<<<<<<< HEAD
   changeView(option) {
     // will toggle the view between the dash and the search
     this.setState({
       view: option,
     });
+=======
+  getItems() {
+    return axios.get('/api/games')
+      .then(({ data }) => data);
+>>>>>>> 102027d0c1e75638598f6ff435c45bdb8140d341
   }
 
   // getItems() {

@@ -11,7 +11,9 @@ create table app_user (
 
 create table team (
   id_team serial primary key,
-  team_name VARCHAR (50) UNIQUE NOT NULL
+  team_name VARCHAR (50) UNIQUE NOT NULL,
+  nba_id INTERGER UNIQUE NOT NULL,
+  tri_code VARCHAR (50)
 );
 
 create table game (
