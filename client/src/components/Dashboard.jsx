@@ -25,7 +25,7 @@ class Dashboard extends React.Component {
   }
 
   getItems() {
-    return axios.get('/items')
+    return axios.get('/api/games')
       .then(({ data }) => data);
   }
 
