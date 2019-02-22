@@ -3,6 +3,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 class Search extends React.Component {
   constructor() {
@@ -11,7 +12,26 @@ class Search extends React.Component {
     this.state = {
       selection: 'SEL',
     };
+    this.getGames = this.getGames.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.getGames()
+      .then((data) => {
+        this.setState({
+          games: data,
+        });
+      })
+      .catch((err) => {
+        console.log('err', err);
+      });
+  }
+
+  getGames() {
+    return axios.get('/api/allGames')
+    // Once we get the Data Back from the APi we need to structure and Save in DB
+      .then(({ data }) => { console.log(data); });
   }
 
   handleChange(event, index, value) {
