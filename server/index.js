@@ -3,6 +3,7 @@
 require('dotenv').config();
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
+const axios = require('axios');
 const db = require('../database');
 
 const app = express(feathers());
@@ -48,6 +49,11 @@ app.get('/api/users', (req, res) => {
     }
   });
 });
+
+// goes into the DB by 
+app.put('/api/bets', (req, res) => {
+
+})
 
 // Register a service
 app.use('/todos', {

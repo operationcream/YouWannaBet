@@ -48,6 +48,19 @@ const getAllUsers = (callback) => {
   });
 };
 
+const updateBet = (idUser, idBet, callback) => {
+  const query = [idUser, idBet];
+  pool.query('UPDATE bet SET idUser = ? WHERE idBet = ?', query, (error, updatedBet) => {
+    if (error) {
+      console.log(error, 'update bet error');
+      callback(error);
+    } else {
+      console.log('bet updated');
+      callback(null, updatedBet);
+    }
+  });
+};
+
 // client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
 //   console.log(err ? err.stack : res.rows[0].message);
 //   // Hello World!
@@ -56,4 +69,5 @@ const getAllUsers = (callback) => {
 
 module.exports = {
   getAllUsers,
+  updateBet,
 };
