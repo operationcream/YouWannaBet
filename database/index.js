@@ -48,6 +48,19 @@ const getAllUsers = (callback) => {
   });
 };
 
+// const updateBet = (idUser, idBet, callback) => {
+//   const query = [idUser, idBet];
+  
+//   pool.query('UPDATE bet SET idUser = ? WHERE idBet = ?', query, (error, updatedBet) => {
+//     if (error) {
+//       console.log(error, 'update bet error');
+//       callback(error);
+//     } else {
+//       console.log('bet updated');
+//       callback(null, updatedBet);
+//     }
+//   }
+
 const saveAllTeams = (teamsArray) => {
   teamsArray.forEach((team) => {
     // eslint-disable-next-line no-param-reassign
@@ -75,5 +88,6 @@ const saveAllTeams = (teamsArray) => {
 
 module.exports = {
   getAllUsers,
+  // updateBet,
   saveAllTeams,
 };

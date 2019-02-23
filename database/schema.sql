@@ -41,3 +41,4 @@ create table bet (
 );
 
 INSERT INTO app_user values(1,'testuser', 'testpassword', 10001);
+INSERT INTO app_user values(2,'testuser2', 'testpassword2', 120001);
