@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Button from '@material-ui/core/Button';
 import { AppBar, Toolbar } from 'material-ui';
 
 class App extends Component {
-
   componentDidMount() {
     const { renewSession } = this.props.auth;
 
@@ -30,22 +30,22 @@ class App extends Component {
       <div>
         <MuiThemeProvider>
           <AppBar>
-            <button
+            <Button
           // bsStyle="primary"
               type="button"
               className="btn-margin"
               onClick={this.goTo.bind(this, 'home')}
-          >
+            >
           Home
-          </button>
+            </Button>
             <button
           // bsStyle="primary"
               type="button"
               className="btn-margin"
               onClick={this.goTo.bind(this, 'search')}
-          >
+            >
           Search
-          </button>
+            </button>
             {
           !isAuthenticated() && (
             <button
