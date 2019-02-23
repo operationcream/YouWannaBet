@@ -13,21 +13,35 @@ class Dashboard extends React.Component {
     this.state = {
       view: 'dashboard',
       userBets: [],
+      userInfo: '',
     };
     // this.getItems = this.getItems.bind(this);
     this.changeView = this.changeView.bind(this);
   }
 
   componentDidMount() {
+    // send request to server to retrieve users live bets
+    // where user is poster and acceptor
     axios.get('/api/userBets')
       .then((userBet) => {
         this.setState({
           userBets: userBet,
         });
-        console.log('successfully mounted')
+        console.log('successfully got userBets');
       })
       .catch((err) => {
-        console.log(err, 'not mounting');
+        console.log(err, 'unable to get userBets');
+      });
+
+    // send request to server to retrieve the username and userpoints
+    axios.get('/api/userInfo')
+      .then((user) => {
+        this.setState({
+          userInfo: user,
+        });
+      })
+      .catch((err) => {
+        console.log(err, 'unable to get userInfo');
       });
 
     // this.getItems()
@@ -48,23 +62,18 @@ class Dashboard extends React.Component {
     });
   }
 
-  // getItems() {
-  //   return axios.get('/api/games')
-  //     .then(({ data }) => data);
-  // }
-  // getItems() {
-  //   return axios.get('/items')
-  //     .then(({ data }) => data);
-  // }
 
   render() {
-    const { view, userBets } = this.state;
+    const { view, userBets, userInfo } = this.state;
     return (
       <div>
         <h1>DashBoard</h1>
         <TopBar changeView={this.changeView} />
         { view === 'dashboard'
-          ? <User userBets={userBets} />
+          ? <User 
+            userBets={userBets} 
+            userInfo={userInfo}
+          />
           : <Search />
         }
       </div>

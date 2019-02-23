@@ -1,11 +1,10 @@
 import React from 'react';
 // render each individual bet from UserBetList
-const UserBetListItem = props => (
+const UserBetListItem = ({item}) => (
+  // TODO on each item 
   <div className="userBetListItem">
   <div className="userBar">
-    <span>
-
-    </span>
+    
   </div>
     <h3>UserBetListItem stuff</h3>
 
