@@ -17,13 +17,27 @@ app.get('/api/games', (req, res) => {
   res.send('hello world!');
 });
 
-
+// Sends Get Request to API for Teams
 app.get('/api/allGames', (req, res) => {
   console.log('This Was Called');
   axios.get('http://data.nba.net/prod/v2/2018/teams.json')
     .then(({ data }) => {
-      console.log(data.league.vegas);
-      res.send('hello  Games!');
+      // console.log(data.league.vegas);
+      // Have Teams Now Send to Database
+      const league = data.league.vegas;
+      const sendToDatabase = [];
+      // Structure each team's object //
+      league.forEach((team) => {
+        const teamInfo = {};
+        teamInfo.team_name = team.fullName;
+        teamInfo.nba_id = team.teamId;
+        teamInfo.tri_code = team.tricode;
+        sendToDatabase.push(teamInfo);
+      });
+      // Send the Array of objects containing all teams to the function to save to database //
+      db.saveAllTeams(sendToDatabase);
+    }).then(() => {
+      res.sendStatus(200);
     }).catch((err) => {
       console.log(err);
     });
