@@ -48,6 +48,25 @@ const getAllUsers = (callback) => {
   });
 };
 
+const saveAllTeams = (teamsArray) => {
+  teamsArray.forEach((team) => {
+    // eslint-disable-next-line no-param-reassign
+    team.nba_id = parseInt(team.nba_id, 10);
+    const params = [];
+    params.push(team.team_name);
+    params.push(team.nba_id);
+    params.push(team.tri_code);
+    const text = 'INSERT INTO team(team_name, nba_id, tri_code) VALUES($1, $2, $3) RETURNING *';
+    pool.query(text, params, (err, res) => {
+      if (err) {
+        console.log(err.stack);
+      } else {
+        console.log(res.rows[0]);
+      }
+    });
+  });
+};
+
 // client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
 //   console.log(err ? err.stack : res.rows[0].message);
 //   // Hello World!
@@ -56,4 +75,5 @@ const getAllUsers = (callback) => {
 
 module.exports = {
   getAllUsers,
+  saveAllTeams,
 };
