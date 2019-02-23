@@ -43,6 +43,11 @@ app.get('/api/allGames', (req, res) => {
     });
 });
 
+// server request to handle 
+// app.get('/api/userInfo', (req, res) => {
+
+// });
+
 
 app.get('/api/users', (req, res) => {
   // TODO - your code here!
@@ -62,12 +67,10 @@ app.get('/api/users', (req, res) => {
   });
 });
 
-// Games Endpoint
-app.post('/api/games', (req, res) => {
-  // use db.getALlGames
-  res.json('Search Hit Endpoint');
-});
+// goes into the DB by 
+app.put('/api/bets', (req, res) => {
 
+})
 
 // Register a service
 app.use('/todos', {
@@ -91,11 +94,6 @@ app.use('/test', (req, res, next) => {
   res.json({
     message: `Hello world from Express middleware ${res.data}`,
   });
-});
-
-// Testing the get function //
-app.get('/', (req, res) => {
-  res.end('Hello from Feathers');
 });
 
 app.listen(port, () => console.log(`listening on port ${port}!`));
