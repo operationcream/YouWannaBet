@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import { makeMainRoutes } from './routes';
+import { makeMainRoutes } from './routes.jsx';
 
 const routes = makeMainRoutes();
 

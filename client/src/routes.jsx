@@ -1,11 +1,10 @@
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { Route, Router } from 'react-router-dom';
-import App from './App';
-import Home from './Home/Home';
-import Callback from './Callback/Callback';
-import Auth from './Auth/Auth';
-import history from './history';
+import App from './App.jsx';
+import Home from './Home/Home.jsx';
+import Callback from './Callback/Callback.jsx';
+import Auth from './Auth/Auth.jsx';
+import history from './history.jsx';
 
 const auth = new Auth();
 

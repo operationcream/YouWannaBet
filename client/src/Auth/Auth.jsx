@@ -1,8 +1,8 @@
-import history from '../history';
+import history from '../history.jsx';
 import auth0 from 'auth0-js';
-import { AUTH_CONFIG } from './auth0-variables';
+import AUTH_CONFIG from './auth0-variables.jsx';
 
-export default class Auth {
+class Auth {
   accessToken;
   idToken;
   expiresAt;
@@ -96,3 +96,5 @@ export default class Auth {
     return new Date().getTime() < expiresAt;
   }
 }
+
+export default Auth;
