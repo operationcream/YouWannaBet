@@ -1,22 +1,16 @@
 /* eslint import/extensions: 0 */
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter, Route } from 'react-router-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Search from './searchGames.jsx';
-import TopBar from './TopBar.jsx';
+
 import User from './User.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'dashboard',
       userBets: [],
       userInfo: '',
     };
-    // this.getItems = this.getItems.bind(this);
-    this.changeView = this.changeView.bind(this);
   }
 
   componentDidMount() {
@@ -27,7 +21,11 @@ class Dashboard extends React.Component {
         this.setState({
           userBets: userBet,
         });
+<<<<<<< HEAD
+        console.log('successfully mounted');
+=======
         console.log('successfully got userBets');
+>>>>>>> bd02c71e6ab4ccfccc1481eea4a9b4b127b11680
       })
       .catch((err) => {
         console.log(err, 'unable to get userBets');
@@ -43,18 +41,16 @@ class Dashboard extends React.Component {
       .catch((err) => {
         console.log(err, 'unable to get userInfo');
       });
-
-    // this.getItems()
-    //   .then((data) => {
-    //     this.setState({
-    //       items: data,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log('err', err);
-    //   });
   }
 
+<<<<<<< HEAD
+  render() {
+    const { userBets } = this.state;
+    return (
+      <div>
+        <h1>DashBoard</h1>
+        <User userBets={userBets} />
+=======
   changeView(option) {
     // will toggle the view between the dash and the search
     this.setState({
@@ -76,6 +72,7 @@ class Dashboard extends React.Component {
           />
           : <Search />
         }
+>>>>>>> bd02c71e6ab4ccfccc1481eea4a9b4b127b11680
       </div>
     );
   }

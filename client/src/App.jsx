@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
-// import axios from 'axios';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Button from '@material-ui/core/Button';
+import { AppBar, Toolbar } from 'material-ui';
 
 class App extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     items: [],
-  //     loggedIn: false,
-  //   };
-  // }
-
   componentDidMount() {
     const { renewSession } = this.props.auth;
 
@@ -35,15 +28,25 @@ class App extends Component {
     const { isAuthenticated } = this.props.auth;
     return (
       <div>
-        <button
+        <MuiThemeProvider>
+          <AppBar>
+            <button
           // bsStyle="primary"
-          type="button"
-          className="btn-margin"
-          onClick={this.goTo.bind(this, 'home')}
-        >
+              type="button"
+              className="btn-margin"
+              onClick={this.goTo.bind(this, 'home')}
+            >
           Home
-        </button>
-        {
+            </button>
+            <button
+          // bsStyle="primary"
+              type="button"
+              className="btn-margin"
+              onClick={this.goTo.bind(this, 'search')}
+            >
+          Search
+            </button>
+            {
           !isAuthenticated() && (
             <button
               id="qsLoginBtn"
@@ -56,7 +59,7 @@ class App extends Component {
             </button>
           )
         }
-        {
+            {
           isAuthenticated() && (
             <button
               id="qsLogoutBtn"
@@ -69,6 +72,8 @@ class App extends Component {
             </button>
           )
         }
+          </AppBar>
+        </MuiThemeProvider>
       </div>
     );
   }
