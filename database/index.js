@@ -59,7 +59,7 @@ const saveAllTeams = (teamsArray) => {
     const text = 'INSERT INTO team(team_name, nba_id, tri_code) VALUES($1, $2, $3) RETURNING *';
     pool.query(text, params, (err, res) => {
       if (err) {
-        console.log(err.stack);
+        //console.log(err.stack);
       } else {
         console.log(res.rows[0]);
       }
