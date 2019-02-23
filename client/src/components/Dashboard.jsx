@@ -1,6 +1,7 @@
 /* eslint import/extensions: 0 */
 import React from 'react';
 import axios from 'axios';
+import Search from './searchGames.jsx';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class Dashboard extends React.Component {
     this.state = {
       items: [],
     };
-    // this.getItems = this.getItems.bind(this);
+    this.getItems = this.getItems.bind(this);
   }
 
   componentDidMount() {
@@ -25,7 +26,7 @@ class Dashboard extends React.Component {
   }
 
   getItems() {
-    return axios.get('/items')
+    return axios.get('/api/games')
       .then(({ data }) => data);
   }
 

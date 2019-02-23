@@ -3,6 +3,7 @@
 require('dotenv').config();
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
+const axios = require('axios');
 const db = require('../database');
 
 const app = express(feathers());
@@ -11,6 +12,23 @@ const port = process.env.PORT || 3000;
 app.use(express.static(`${__dirname}/../client/dist`));
 
 app.use('/callback', express.static(`${__dirname}/../client/dist`));
+
+app.get('/api/games', (req, res) => {
+  res.send('hello world!');
+});
+
+
+app.get('/api/allGames', (req, res) => {
+  console.log('This Was Called');
+  axios.get('http://data.nba.net/prod/v2/2018/teams.json')
+    .then(({ data }) => {
+      console.log(data.league.vegas);
+      res.send('hello  Games!');
+    }).catch((err) => {
+      console.log(err);
+    });
+});
+
 
 app.get('/api/users', (req, res) => {
   // TODO - your code here!
@@ -29,6 +47,13 @@ app.get('/api/users', (req, res) => {
     }
   });
 });
+
+// Games Endpoint
+app.post('/api/games', (req, res) => {
+  // use db.getALlGames
+  res.json('Search Hit Endpoint');
+});
+
 
 // Register a service
 app.use('/todos', {
@@ -52,6 +77,11 @@ app.use('/test', (req, res, next) => {
   res.json({
     message: `Hello world from Express middleware ${res.data}`,
   });
+});
+
+// Testing the get function //
+app.get('/', (req, res) => {
+  res.end('Hello from Feathers');
 });
 
 app.listen(port, () => console.log(`listening on port ${port}!`));
