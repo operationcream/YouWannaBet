@@ -48,16 +48,35 @@ const getAllUsers = (callback) => {
   });
 };
 
-const updateBet = (idUser, idBet, callback) => {
-  const query = [idUser, idBet];
-  pool.query('UPDATE bet SET idUser = ? WHERE idBet = ?', query, (error, updatedBet) => {
-    if (error) {
-      console.log(error, 'update bet error');
-      callback(error);
-    } else {
-      console.log('bet updated');
-      callback(null, updatedBet);
-    }
+// const updateBet = (idUser, idBet, callback) => {
+//   const query = [idUser, idBet];
+  
+//   pool.query('UPDATE bet SET idUser = ? WHERE idBet = ?', query, (error, updatedBet) => {
+//     if (error) {
+//       console.log(error, 'update bet error');
+//       callback(error);
+//     } else {
+//       console.log('bet updated');
+//       callback(null, updatedBet);
+//     }
+//   }
+
+const saveAllTeams = (teamsArray) => {
+  teamsArray.forEach((team) => {
+    // eslint-disable-next-line no-param-reassign
+    team.nba_id = parseInt(team.nba_id, 10);
+    const params = [];
+    params.push(team.team_name);
+    params.push(team.nba_id);
+    params.push(team.tri_code);
+    const text = 'INSERT INTO team(team_name, nba_id, tri_code) VALUES($1, $2, $3) RETURNING *';
+    pool.query(text, params, (err, res) => {
+      if (err) {
+        // console.log(err.stack);
+      } else {
+        console.log(res.rows[0]);
+      }
+    });
   });
 };
 
@@ -69,5 +88,6 @@ const updateBet = (idUser, idBet, callback) => {
 
 module.exports = {
   getAllUsers,
-  updateBet,
+  // updateBet,
+  saveAllTeams,
 };

@@ -5,18 +5,27 @@ const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const axios = require('axios');
 const db = require('../database');
+const bodyParser = require('body-parser');
 
 const app = express(feathers());
 const port = process.env.PORT || 3000;
 
 app.use(express.static(`${__dirname}/../client/dist`));
 
+// Set Express to use body-parser as a middleware //
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use('/callback', express.static(`${__dirname}/../client/dist`));
 
-app.get('/api/games', (req, res) => {
-  res.send('hello world!');
+// Handles POST requests from Search Games //
+app.post('/api/games', (req, res) => {
+  let teamName = req.body;
+  console.log(req.body);
+  res.send(req.body);
 });
 
+<<<<<<< HEAD
 
 app.get('/api/allGames', (req, res) => {
   // console.log('This Was Called');
@@ -24,10 +33,38 @@ app.get('/api/allGames', (req, res) => {
     .then(({ data }) => {
       // console.log(data.league.vegas);
       res.send('hello  Games!');
+=======
+// Sends Get Request to API for Teams
+app.get('/api/allTeams', (req, res) => {
+  console.log('This Was Called');
+  axios.get('http://data.nba.net/prod/v2/2018/teams.json')
+    .then(({ data }) => {
+      // console.log(data.league.vegas);
+      // Have Teams Now Send to Database
+      const league = data.league.vegas;
+      const sendToDatabase = [];
+      // Structure each team's object //
+      league.forEach((team) => {
+        const teamInfo = {};
+        teamInfo.team_name = team.fullName;
+        teamInfo.nba_id = team.teamId;
+        teamInfo.tri_code = team.tricode;
+        sendToDatabase.push(teamInfo);
+      });
+      // Send the Array of objects containing all teams to the function to save to database //
+      db.saveAllTeams(sendToDatabase);
+    }).then(() => {
+      res.sendStatus(200);
+>>>>>>> bd02c71e6ab4ccfccc1481eea4a9b4b127b11680
     }).catch((err) => {
       console.log(err);
     });
 });
+
+// server request to handle 
+// app.get('/api/userInfo', (req, res) => {
+
+// });
 
 
 app.get('/api/users', (req, res) => {
