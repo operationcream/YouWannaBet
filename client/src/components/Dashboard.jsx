@@ -13,15 +13,16 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    this.getItems()
-      .then((data) => {
-        this.setState({
-          items: data,
-        });
-      })
-      .catch((err) => {
-        console.log('err', err);
-      });
+    console.log(this.state.items);
+    // this.getItems()
+    //   .then((data) => {
+    //     this.setState({
+    //       items: data,
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     console.log('err', err);
+    //   });
   }
 
   getItems() {
