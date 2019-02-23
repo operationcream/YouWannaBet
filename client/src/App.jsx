@@ -30,14 +30,14 @@ class App extends Component {
       <div>
         <MuiThemeProvider>
           <AppBar>
-            <Button
+            <button
           // bsStyle="primary"
               type="button"
               className="btn-margin"
               onClick={this.goTo.bind(this, 'home')}
             >
           Home
-            </Button>
+            </button>
             <button
           // bsStyle="primary"
               type="button"
