@@ -43,11 +43,24 @@ app.get('/api/allGames', (req, res) => {
     });
 });
 
-// server request to handle 
-// app.get('/api/userInfo', (req, res) => {
+// server request that will query DB to retrieve userInfo
+app.get('/api/userInfo', (req, res) => {
+  console.log(req);
+  const { id } = req.query;
+  db.getUserInfo(id, (err, user) => {
+    if (err) {
+      res.send('could not retrieve user');
+    } else {
+      console.log('sending user');
+      res.send(user);
+    }
+  });
+});
 
-// });
-
+// server request that will query DB to retrieve usersBets
+app.get('/api/userBets', (req, res) => {
+  res.send('ahhh');
+});
 
 app.get('/api/users', (req, res) => {
   // TODO - your code here!
@@ -67,10 +80,10 @@ app.get('/api/users', (req, res) => {
   });
 });
 
-// goes into the DB by 
+// goes into the DB by
 app.put('/api/bets', (req, res) => {
 
-})
+});
 
 // Register a service
 app.use('/todos', {

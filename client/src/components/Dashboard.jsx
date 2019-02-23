@@ -22,6 +22,7 @@ class Dashboard extends React.Component {
   componentDidMount() {
     // send request to server to retrieve users live bets
     // where user is poster and acceptor
+    // need to send userId
     axios.get('/api/userBets')
       .then((userBet) => {
         this.setState({
@@ -34,6 +35,7 @@ class Dashboard extends React.Component {
       });
 
     // send request to server to retrieve the username and userpoints
+    // need to send userId
     axios.get('/api/userInfo')
       .then((user) => {
         this.setState({
