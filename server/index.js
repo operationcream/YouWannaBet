@@ -5,20 +5,28 @@ const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const axios = require('axios');
 const db = require('../database');
+const bodyParser = require('body-parser');
 
 const app = express(feathers());
 const port = process.env.PORT || 3000;
 
 app.use(express.static(`${__dirname}/../client/dist`));
 
+// Set Express to use body-parser as a middleware //
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use('/callback', express.static(`${__dirname}/../client/dist`));
 
-app.get('/api/games', (req, res) => {
-  res.send('hello world!');
+// Handles POST requests from Search Games //
+app.post('/api/games', (req, res) => {
+  let teamName = req.body;
+  console.log(req.body);
+  res.send(req.body);
 });
 
 // Sends Get Request to API for Teams
-app.get('/api/allGames', (req, res) => {
+app.get('/api/allTeams', (req, res) => {
   console.log('This Was Called');
   axios.get('http://data.nba.net/prod/v2/2018/teams.json')
     .then(({ data }) => {
