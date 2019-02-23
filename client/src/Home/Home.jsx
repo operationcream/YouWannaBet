@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react';
+import Search from '../components/searchGames.jsx';
+import Dashboard from '../components/Dashboard.jsx';
 
 class Home extends Component {
   login() {
@@ -12,9 +14,18 @@ class Home extends Component {
       <div className="container">
         {
           isAuthenticated() && (
-          <h4>
-            You are logged in!
-          </h4>
+            <div>
+              <h4>
+                You are logged in!
+              </h4>
+              <div className="col-md-6 offset-md-3">
+                <Dashboard />
+              </div>
+              <div className="col-md-6 offset-md-3">
+                <h1>Search</h1>
+                <Search />
+              </div>
+            </div>
           )
         }
         {
