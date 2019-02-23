@@ -29,6 +29,16 @@ class Dashboard extends React.Component {
       .catch((err) => {
         console.log(err, 'not mounting');
       });
+
+    // this.getItems()
+    //   .then((data) => {
+    //     this.setState({
+    //       items: data,
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     console.log('err', err);
+    //   });
   }
 
   changeView(option) {

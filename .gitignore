@@ -8,3 +8,4 @@ package-lock.json
 
 # environmental variables
 .env 
+client/src/Auth/auth0-variables.js
