@@ -9,11 +9,9 @@ const db = require('../database');
 const app = express(feathers());
 const port = process.env.PORT || 3000;
 
-app.use(express.static('client/dist'));
+app.use(express.static(`${__dirname}/../client/dist`));
 
-app.get('/', (req, res) => {
-  res.send('hello world!');
-});
+app.use('/callback', express.static(`${__dirname}/../client/dist`));
 
 app.get('/api/games', (req, res) => {
   res.send('hello world!');
