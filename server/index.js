@@ -19,10 +19,10 @@ app.get('/api/games', (req, res) => {
 
 
 app.get('/api/allGames', (req, res) => {
-  console.log('This Was Called');
+  // console.log('This Was Called');
   axios.get('http://data.nba.net/prod/v2/2018/teams.json')
     .then(({ data }) => {
-      console.log(data.league.vegas);
+      // console.log(data.league.vegas);
       res.send('hello  Games!');
     }).catch((err) => {
       console.log(err);
@@ -48,10 +48,10 @@ app.get('/api/users', (req, res) => {
   });
 });
 
-// goes into the DB by 
+// goes into the DB by
 app.put('/api/bets', (req, res) => {
 
-})
+});
 
 // Register a service
 app.use('/todos', {
