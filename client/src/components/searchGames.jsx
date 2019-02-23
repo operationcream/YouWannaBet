@@ -12,49 +12,29 @@ class Search extends React.Component {
     this.state = {
       selection: 'SEL',
     };
-    this.getGames = this.getGames.bind(this);
+    this.getTeams = this.getTeams.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.getGames = this.getGames.bind(this)
   }
 
-  componentDidMount() {
-    this.getGames()
-      .then((data) => {
-        this.setState({
-          games: data,
-        });
-      })
-      .catch((err) => {
-        console.log('err', err);
+  getGames(teamObject) {
+    console.log(teamObject.team);
+    return axios.post('/api/games', teamObject)
+      .then(({ data }) => {
+        console.log(data);
       });
   }
 
-  getGames() {
-    return axios.get('/api/allGames')
+  getTeams() {
+    return axios.get('/api/allTeams')
     // Once we get the Data Back from the APi we need to structure and Save in DB
       .then(({ data }) => { console.log(data); });
   }
 
   handleChange(event, index, value) {
     this.setState({ selection: value });
+    this.getGames({ team: value });
   }
-
-  pageControl() {
-    if (this.state.selection === 'ORL') {
-      return (
-        <div>Orlando</div>
-      );
-    } if (this.state.selection === 'NOP') {
-      return (
-        <div>New Orleans Pelicans</div>
-      );
-    } if (this.state.selection === 'LAL') {
-      return (
-        <div>Los Angeles Lakers</div>
-      );
-    }
-    return null;
-  }
-
 
   render() {
     return (
