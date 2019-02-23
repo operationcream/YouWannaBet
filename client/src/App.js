@@ -57,34 +57,37 @@ class App extends Component {
           <Search />
         </div> */}
         <button
-          bsStyle="primary"
+          // bsStyle="primary"
+          type="button"
           className="btn-margin"
           onClick={this.goTo.bind(this, 'home')}
         >
           Home
-            </button>
+        </button>
         {
           !isAuthenticated() && (
             <button
               id="qsLoginBtn"
-              bsStyle="primary"
+              // bsStyle="primary"
+              type="button"
               className="btn-margin"
               onClick={this.login.bind(this)}
             >
               Log In
-              </button>
+            </button>
           )
         }
         {
           isAuthenticated() && (
             <button
               id="qsLogoutBtn"
-              bsStyle="primary"
+              // bsStyle="primary"
+              type="button"
               className="btn-margin"
               onClick={this.logout.bind(this)}
             >
               Log Out
-                </button>
+            </button>
           )
         }
       </div>
