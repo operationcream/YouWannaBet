@@ -61,6 +61,30 @@ const getAllUsers = (callback) => {
 //     }
 //   }
 
+const getUserInfo = (userId, callback) => {
+  pool.query('SELECT * FROM app_user WHERE id_user = ($1)', [userId], (err, res) => {
+    if (err) {
+      console.log(err, 'there is an error getting the userInfo');
+      callback(err);
+    } else {
+      console.log('getuserInfo successful');
+      callback(null, res);
+    }
+  });
+};
+
+const getUserBets = (userId, callback) => {
+  pool.query('SELECT * FROM bet WHERE id = ? IN(id_user_acceptor, id_user_poster)', userId, (err, res) => {
+    if (err) {
+      console.log('there is an error getting the userbets');
+      callback(err);
+    } else {
+      console.log('successfully getting user bets');
+      callback(null, res);
+    }
+  });
+};
+
 const saveAllTeams = (teamsArray) => {
   teamsArray.forEach((team) => {
     // eslint-disable-next-line no-param-reassign
@@ -88,6 +112,8 @@ const saveAllTeams = (teamsArray) => {
 
 module.exports = {
   getAllUsers,
+  getUserInfo,
   // updateBet,
   saveAllTeams,
+  getUserBets,
 };
