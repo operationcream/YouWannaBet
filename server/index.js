@@ -22,7 +22,8 @@ app.use('/callback', express.static(`${__dirname}/../client/dist`));
 app.post('/api/games', (req, res) => {
   const teamName = req.body;
   console.log(req.body);
-  res.send(teamName);
+  const info = db.getIDFromTri(teamName.team);
+  res.send(info);
 });
 
 // Sends Get Request to API for Teams

@@ -79,6 +79,21 @@ const saveAllTeams = (teamsArray) => {
   });
 };
 
+const getIDFromTri = (triCode) => {
+  const query = {
+    // give the query a unique name
+    name: 'fetch-user',
+    text: 'SELECT * FROM team WHERE tri_code = $1',
+    values: [triCode],
+  };
+  pool.query(query)
+    .then((res) => {
+      console.log(res.rows[0]);
+      return res.rows;
+    })
+    .catch(e => console.error(e.stack));
+};
+
 // client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
 //   console.log(err ? err.stack : res.rows[0].message);
 //   // Hello World!
@@ -89,4 +104,5 @@ module.exports = {
   getAllUsers,
   // updateBet,
   saveAllTeams,
+  getIDFromTri,
 };
