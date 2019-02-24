@@ -50,7 +50,6 @@ const getAllUsers = (callback) => {
 
 // const updateBet = (idUser, idBet, callback) => {
 //   const query = [idUser, idBet];
-  
 //   pool.query('UPDATE bet SET idUser = ? WHERE idBet = ?', query, (error, updatedBet) => {
 //     if (error) {
 //       console.log(error, 'update bet error');

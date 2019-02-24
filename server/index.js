@@ -4,8 +4,8 @@ require('dotenv').config();
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const axios = require('axios');
-const db = require('../database');
 const bodyParser = require('body-parser');
+const db = require('../database');
 
 const app = express(feathers());
 const port = process.env.PORT || 3000;
@@ -20,20 +20,11 @@ app.use('/callback', express.static(`${__dirname}/../client/dist`));
 
 // Handles POST requests from Search Games //
 app.post('/api/games', (req, res) => {
-  let teamName = req.body;
+  const teamName = req.body;
   console.log(req.body);
-  res.send(req.body);
+  res.send(teamName);
 });
 
-<<<<<<< HEAD
-
-app.get('/api/allGames', (req, res) => {
-  // console.log('This Was Called');
-  axios.get('http://data.nba.net/prod/v2/2018/teams.json')
-    .then(({ data }) => {
-      // console.log(data.league.vegas);
-      res.send('hello  Games!');
-=======
 // Sends Get Request to API for Teams
 app.get('/api/allTeams', (req, res) => {
   console.log('This Was Called');
@@ -55,13 +46,12 @@ app.get('/api/allTeams', (req, res) => {
       db.saveAllTeams(sendToDatabase);
     }).then(() => {
       res.sendStatus(200);
->>>>>>> bd02c71e6ab4ccfccc1481eea4a9b4b127b11680
     }).catch((err) => {
       console.log(err);
     });
 });
 
-// server request to handle 
+// server request to handle //
 // app.get('/api/userInfo', (req, res) => {
 
 // });
