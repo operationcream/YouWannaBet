@@ -9,7 +9,7 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       userBets: [],
-      userInfo: '',
+      userInfo: [],
     };
   }
 
@@ -17,12 +17,15 @@ class Dashboard extends React.Component {
     // send request to server to retrieve users live bets
     // where user is poster and acceptor
     // need to send userId
-    axios.get('/api/userBets')
+
+    const userId = 2; // NEED TO FIX THIS!!!!! how to find userId???
+
+    axios.get(`/api/userBets/${userId}`)
       .then((userBet) => {
         this.setState({
-          userBets: userBet,
+          userBets: userBet.data.rows,
         });
-        console.log('successfully got userBets');
+        console.log('bets',userBet.data.rows);
       })
       .catch((err) => {
         console.log(err, 'unable to get userBets');
@@ -30,10 +33,10 @@ class Dashboard extends React.Component {
 
     // send request to server to retrieve the username and userpoints
     // need to send userId
-    axios.get('/api/userInfo')
+    axios.get(`/api/userInfo/${userId}`)
       .then((user) => {
         this.setState({
-          userInfo: user,
+          userInfo: user.data.rows,
         });
       })
       .catch((err) => {
@@ -43,6 +46,7 @@ class Dashboard extends React.Component {
 
   render() {
     const { userBets, userInfo } = this.state;
+    console.log(userInfo);
     return (
       <User
         userBets={userBets}
