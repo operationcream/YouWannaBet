@@ -39,14 +39,6 @@ class Dashboard extends React.Component {
       });
   }
 
-  changeView(option) {
-    // will toggle the view between the dash and the search
-    this.setState({
-      view: option,
-    });
-  }
-
-
   render() {
     const { userBets } = this.state;
     return (
