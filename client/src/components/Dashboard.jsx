@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import User from './User.jsx';
 
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -42,7 +43,9 @@ class Dashboard extends React.Component {
   render() {
     const { userBets } = this.state;
     return (
-      <User userBets={userBets} />
+      <div>
+        <User userBets={userBets} />
+      </div>
     );
   }
 }
