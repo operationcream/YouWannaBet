@@ -1,7 +1,8 @@
 import React from 'react';
-import { Route, Router } from 'react-router-dom';
+import { Redirect, Route, Router } from 'react-router-dom';
 import App from './App.jsx';
 import Home from './Home/Home.jsx';
+import Profile from './components/Profile.jsx';
 import Search from './components/searchGames.jsx';
 import Callback from './Callback/Callback.jsx';
 import Auth from './Auth/Auth.jsx';

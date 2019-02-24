@@ -1,15 +1,15 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import { AppBar, Toolbar } from 'material-ui';
+import { AppBar } from 'material-ui';
 
 class App extends Component {
   componentDidMount() {
-    const { renewSession } = this.props.auth;
+    const { auth } = this.props;
 
     if (localStorage.getItem('isLoggedIn') === 'true') {
-      renewSession();
+      auth.renewSession();
     }
   }
 
@@ -58,6 +58,16 @@ class App extends Component {
             </IconButton>
           )
         }
+            {/* {
+              isAuthenticated() && (
+                <IconButton
+                  className="btn-margin"
+                  onClick={this.goTo.bind(this, 'profile')}
+                >
+                  Profile
+                </IconButton>
+              )
+            } */}
             {
           isAuthenticated() && (
             <IconButton
@@ -76,5 +86,9 @@ class App extends Component {
     );
   }
 }
+
+// App.propTypes = {
+//   auth: React.PropTypes.object.isRequired,
+// };
 
 export default App;
