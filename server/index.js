@@ -67,6 +67,31 @@ app.get('/api/allTeams', (req, res) => {
     });
 });
 
+
+app.get('/api/allTeams', (req, res) => {
+  axios.get('http://data.nba.net/prod/v2/2018/teams.json')
+    .then(({ data }) => {
+      // console.log(data.league.vegas);
+      // Have Teams Now Send to Database
+      const league = data.league.vegas;
+      const sendToDatabase = [];
+      // Structure each team's object //
+      league.forEach((team) => {
+        const teamInfo = {};
+        teamInfo.team_name = team.fullName;
+        teamInfo.nba_id = team.teamId;
+        teamInfo.tri_code = team.tricode;
+        sendToDatabase.push(teamInfo);
+      });
+      // Send the Array of objects containing all teams to the function to save to database //
+      db.saveAllTeams(sendToDatabase);
+    }).then(() => {
+      res.sendStatus(200);
+    }).catch((err) => {
+      console.log(err);
+    });
+});
+
 app.get('/games', (req, res) => {
   // getting all games from the DB
   // each game has a unique identifier
@@ -159,6 +184,37 @@ app.patch('/api/bets/', (req, res) => {
       res.status(200).send(insertResult);
     }
   });
+});
+
+
+// server request that will query DB to retrieve userInfo
+// TODO gets the correct response in postman, need to make sure it works on client side and make sure getting id correctly
+app.get('/api/userInfo/:userId', (req, res) => {
+  const { userId } = req.params;
+  // const { id } = req.query;
+  db.getUserInfo(userId, (err, user) => {
+    if (err) {
+      res.status.send('could not retrieve user');
+    } else {
+      console.log('sending user');
+      res.send(user);
+    }
+  });
+});
+
+// server request that will query DB to retrieve usersBets
+// TODO gets the correct response in postman, need to make sure it works on client side and make sure getting id correctly
+app.get('/api/userBets/:userId', (req, res) => {
+  const { userId } = req.params;
+  db.getUserBets(userId, (err, userBets) => {
+    if (err) {
+      res.status(500).send('unable to ger user bets');
+    } else {
+      console.log('sending bets');
+      res.send(userBets);
+    }
+  });
+
 });
 
 app.get('/api/users', (req, res) => {
