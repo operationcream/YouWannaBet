@@ -42,9 +42,12 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { userBets } = this.state;
+    const { userBets, userInfo } = this.state;
     return (
-      <User userBets={userBets} />
+      <User
+        userBets={userBets}
+        userInfo={userInfo}
+      />
     );
   }
 }

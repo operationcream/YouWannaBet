@@ -47,31 +47,6 @@ module.exports.getAllUsers = (callback) => {
 //     }
 //   }
 
-const getUserInfo = (userId, callback) => {
-  pool.query('SELECT * FROM app_user WHERE id_user = ($1)', [userId], (err, res) => {
-    if (err) {
-      console.log(err, 'there is an error getting the userInfo');
-      callback(err);
-    } else {
-      console.log('getuserInfo successful');
-      callback(null, res);
-    }
-  });
-};
-
-const getUserBets = (userId, callback) => {
-  pool.query('SELECT * FROM bet WHERE id = ? IN(id_user_acceptor, id_user_poster)', userId, (err, res) => {
-    if (err) {
-      console.log('there is an error getting the userbets');
-      callback(err);
-    } else {
-      console.log('successfully getting user bets');
-      callback(null, res);
-    }
-  });
-};
-
-const saveAllTeams = (teamsArray) => {
 module.exports.saveAllTeams = (teamsArray) => {
   teamsArray.forEach((team) => {
     // eslint-disable-next-line no-param-reassign
@@ -113,14 +88,6 @@ module.exports.getAllBets = (callback) => {
   });
 };
 
-<<<<<<< HEAD
-module.exports = {
-  getAllUsers,
-  getUserInfo,
-  // updateBet,
-  saveAllTeams,
-  getUserBets,
-=======
 module.exports.getBetsByTeam = (teamId, callback) => {
   pool.query('SELECT * FROM bet WHERE id_game IN (SELECT id_game FROM game WHERE id_team_home = $1 OR id_team_away = $1);', [teamId], (error, games) => {
     if (error) {
@@ -129,5 +96,28 @@ module.exports.getBetsByTeam = (teamId, callback) => {
       callback(null, games.rows);
     }
   });
->>>>>>> dd8ff5d6f469dc784d8cbc745cc5562cfc30632b
+};
+
+module.exports.getUserInfo = (userId, callback) => {
+  pool.query('SELECT * FROM app_user WHERE id_user = ($1)', [userId], (err, res) => {
+    if (err) {
+      console.log(err, 'there is an error getting the userInfo');
+      callback(err);
+    } else {
+      console.log('getuserInfo successful');
+      callback(null, res);
+    }
+  });
+};
+
+module.exports.getUserBets = (userId, callback) => {
+  pool.query('SELECT * FROM bet WHERE ($1) IN(id_user_acceptor, id_user_poster)', [userId], (err, res) => {
+    if (err) {
+      console.log('there is an error getting the userbets');
+      callback(err);
+    } else {
+      console.log('successfully getting user bets');
+      callback(null, res);
+    }
+  });
 };

@@ -48,19 +48,7 @@ app.get('/api/allTeams', (req, res) => {
     });
 });
 
-// server request that will query DB to retrieve userInfo
-app.get('/api/userInfo', (req, res) => {
-  console.log(req);
-  const { id } = req.query;
-  db.getUserInfo(id, (err, user) => {
-    if (err) {
-      res.send('could not retrieve user');
-    } else {
-      console.log('sending user');
-      res.send(user);
-    }
-  });
-});
+
 app.get('/api/allTeams', (req, res) => {
   axios.get('http://data.nba.net/prod/v2/2018/teams.json')
     .then(({ data }) => {
@@ -147,26 +135,65 @@ app.get('/api/bets/:teamId', (req, res) => {
 // adds single bet to database (used when user initially posts bet)
 app.put('/api/bets/', (req, res) => {
   // save single bet to database
-  db.saveBet(posterId, amount, gameId);
+  const { gameId } = req.body;
+  const { amount } = req.body;
+  const { posterId } = req.body;
   // takes in user id (poster), amount, id_game
-  // returns insert id to client (or whatever result is)
+  db.saveBet(gameId, amount, posterId, (err, insertedBet) => {
+    if (err) {
+      console.log(err);
+      res.send(500);
+    } else {
+      // returns confirmation and insertedbet object
+      res.status(200).send(insertedBet);
+    }
+  });
 });
 
 // updates single bet in DB (used when user accepts bet)
 app.patch('/api/bets/', (req, res) => {
   // takes in user id (acceptor) and bet id
+  const { acceptorId } = req.body;
+  const { betId } = req.body;
   // updates record in database
-  // returns insert id to client (or whatever result is)
+  db.updateBet(acceptorId, betId, (err, insertResult) => {
+    if (err) {
+      console.log(err);
+      res.send(500);
+    } else {
+      // returns confirmation and insertedbet object
+      res.status(200).send(insertResult);
+    }
+  });
 });
 
-// server request to handle
-// app.get('/api/userInfo', (req, res) => {
 
-// });
+// server request that will query DB to retrieve userInfo
+app.get('/api/userInfo', (req, res) => {
+  console.log(req);
+  const { id } = req.query;
+  db.getUserInfo(id, (err, user) => {
+    if (err) {
+      res.status.send('could not retrieve user');
+    } else {
+      console.log('sending user');
+      res.send(user);
+    }
+  });
+});
 
 // server request that will query DB to retrieve usersBets
 app.get('/api/userBets', (req, res) => {
-  res.send('ahhh');
+  const { id } = req.query;
+  db.getUserBets(id, (err, userBets) => {
+    if (err) {
+      res.status(500).send('unable to ger user bets');
+    } else {
+      console.log('sending bets');
+      res.send(userBets);
+    }
+  });
+
 });
 
 app.get('/api/users', (req, res) => {
