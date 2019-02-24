@@ -1,11 +1,9 @@
-// https://docs.feathersjs.com/api/express.html
-// check out docs for more info
 require('dotenv').config();
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const axios = require('axios');
-const db = require('../database');
 const bodyParser = require('body-parser');
+const db = require('../database');
 
 const app = express(feathers());
 const port = process.env.PORT || 3000;
@@ -25,18 +23,8 @@ app.post('/api/games', (req, res) => {
   res.send(req.body);
 });
 
-<<<<<<< HEAD
-
-app.get('/api/allGames', (req, res) => {
-  // console.log('This Was Called');
-  axios.get('http://data.nba.net/prod/v2/2018/teams.json')
-    .then(({ data }) => {
-      // console.log(data.league.vegas);
-      res.send('hello  Games!');
-=======
 // Sends Get Request to API for Teams
 app.get('/api/allTeams', (req, res) => {
-  console.log('This Was Called');
   axios.get('http://data.nba.net/prod/v2/2018/teams.json')
     .then(({ data }) => {
       // console.log(data.league.vegas);
@@ -55,13 +43,31 @@ app.get('/api/allTeams', (req, res) => {
       db.saveAllTeams(sendToDatabase);
     }).then(() => {
       res.sendStatus(200);
->>>>>>> bd02c71e6ab4ccfccc1481eea4a9b4b127b11680
     }).catch((err) => {
       console.log(err);
     });
 });
 
-// server request to handle 
+app.get('/games', (req, res) => {
+  // getting all games from the DB
+  // each game has a unique identifier
+  // allows user to see and apply bets to a specific game
+  db.getAllGames((err, games) => {
+    if (err) {
+      console.log(err);
+      res.send(500);
+    } else {
+      res.status(200).send(games);
+    }
+  });
+
+  // show list of games
+  // each game listing has related bets listed
+  // each game can have new bets posted
+  // each bet listed can be accepted
+});
+
+// server request to handle
 // app.get('/api/userInfo', (req, res) => {
 
 // });
@@ -88,30 +94,6 @@ app.get('/api/users', (req, res) => {
 // goes into the DB by
 app.put('/api/bets', (req, res) => {
 
-});
-
-// Register a service
-app.use('/todos', {
-  get(id) {
-    return Promise.resolve({ id });
-  },
-});
-
-// Register an Express middleware
-app.use('/test', (req, res) => {
-  res.json({
-    message: 'Hello world from Express middleware',
-  });
-});
-
-// Register multiple Express middleware functions
-app.use('/test', (req, res, next) => {
-  res.data = 'Step 1 worked';
-  next();
-}, (req, res) => {
-  res.json({
-    message: `Hello world from Express middleware ${res.data}`,
-  });
 });
 
 app.listen(port, () => console.log(`listening on port ${port}!`));
