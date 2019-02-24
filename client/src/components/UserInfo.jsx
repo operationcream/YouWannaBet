@@ -8,11 +8,13 @@ import Paper from '@material-ui/core/Paper';
 // welcomes user, list points and contains the users bets
 // import banner from '../../images/Banner-Dark.jpg';
 
-const UserInfo = ({username, points}) => (
+const UserInfo = ({ userInfo }) => (
   <div>
     <h1>UserInfo</h1>
-    <h3>{username}</h3>
-    <h3>{points}</h3>
+    Welcome { userInfo.username }! <br />
+    Current points: { userInfo.points }
+    {/* <h3>{props.UserInfo}</h3> */}
+    {/* <h3>{points}</h3> */}
 
   </div>
 );
