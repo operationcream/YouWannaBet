@@ -98,6 +98,7 @@ module.exports.getBetsByTeam = (teamId, callback) => {
   });
 };
 
+// helper function to query DB to retrieve user name and points
 module.exports.getUserInfo = (userId, callback) => {
   pool.query('SELECT * FROM app_user WHERE id_user = ($1)', [userId], (err, res) => {
     if (err) {
@@ -110,6 +111,7 @@ module.exports.getUserInfo = (userId, callback) => {
   });
 };
 
+// helper function to query DB to retrieve user bets from acceptor and poster field
 module.exports.getUserBets = (userId, callback) => {
   pool.query('SELECT * FROM bet WHERE ($1) IN(id_user_acceptor, id_user_poster)', [userId], (err, res) => {
     if (err) {
