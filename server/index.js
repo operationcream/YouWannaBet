@@ -159,4 +159,18 @@ app.get('/api/users', (req, res) => {
   });
 });
 
+// get user info by username
+app.get('/api/users/:username', (req, res) => {
+  const { username } = req.params;
+  db.getUserByUsername(username, (err, bets) => {
+    if (err) {
+      console.log(err);
+      res.send(500);
+    } else {
+      // returns an array of bets by single team
+      res.status(200).send(bets);
+    }
+  });
+});
+
 app.listen(port, () => console.log(`listening on port ${port}!`));

@@ -26,13 +26,23 @@ pool.connect((error) => {
 
 module.exports.getAllUsers = (callback) => {
   pool.query('SELECT * FROM app_user', (error, response) => {
-    console.log(response.rows);
     if (error) {
       callback(error, null);
     } else {
       callback(null, response.rows);
     }
   });
+};
+
+module.exports.getUserByUsername = (username, callback) => {
+  pool.query('SELECT * FROM app_user WHERE username = $1',
+    [username], (error, user) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        callback(null, user.rows);
+      }
+    });
 };
 
 module.exports.saveAllTeams = (teamsArray) => {
