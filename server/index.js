@@ -169,10 +169,11 @@ app.patch('/api/bets/', (req, res) => {
 
 
 // server request that will query DB to retrieve userInfo
-app.get('/api/userInfo', (req, res) => {
-  console.log(req);
-  const { id } = req.query;
-  db.getUserInfo(id, (err, user) => {
+// TODO gets the correct response in postman, need to make sure it works on client side and make sure getting id correctly
+app.get('/api/userInfo/:userId', (req, res) => {
+  const { userId } = req.params;
+  // const { id } = req.query;
+  db.getUserInfo(userId, (err, user) => {
     if (err) {
       res.status.send('could not retrieve user');
     } else {
@@ -183,9 +184,10 @@ app.get('/api/userInfo', (req, res) => {
 });
 
 // server request that will query DB to retrieve usersBets
-app.get('/api/userBets', (req, res) => {
-  const { id } = req.query;
-  db.getUserBets(id, (err, userBets) => {
+// TODO gets the correct response in postman, need to make sure it works on client side and make sure getting id correctly
+app.get('/api/userBets/:userId', (req, res) => {
+  const { userId } = req.params;
+  db.getUserBets(userId, (err, userBets) => {
     if (err) {
       res.status(500).send('unable to ger user bets');
     } else {
