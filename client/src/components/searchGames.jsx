@@ -10,6 +10,7 @@ class Search extends React.Component {
 
     this.state = {
       selection: 'SEL',
+      bets: [],
     };
     this.getTeams = this.getTeams.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -17,10 +18,12 @@ class Search extends React.Component {
   }
 
   getGames(teamObject) {
-    console.log(teamObject.team);
+    // console.log(teamObject.team);
     return axios.post('/api/games', teamObject)
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
+        this.setState({bets: data});
+        console.log(this.state);
       });
   }
 

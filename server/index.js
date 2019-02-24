@@ -28,9 +28,6 @@ app.post('/api/games', (req, res) => {
       // Destructure information I need to send to database and NBA
       const nbaId = team[0].nba_id;
       const id = team[0].id_team;
-      const smallInfo = {};
-      smallInfo.nba = nbaId;
-      smallInfo.id = id;
       // call get bets to return an array of bets by single team
       db.getBetsByTeam(id, (error, bets) => {
         if (error) {
@@ -40,7 +37,6 @@ app.post('/api/games', (req, res) => {
           res.status(200).send(bets);
         }
       });
-      // res.status(200).send(smallInfo);
     }
   });
 });
