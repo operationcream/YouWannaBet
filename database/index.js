@@ -66,9 +66,20 @@ module.exports.saveAllTeams = (teamsArray) => {
   });
 };
 
+// returns all games currently in DB
 module.exports.getAllGames = (callback) => {
   pool.query('SELECT * FROM game', (error, response) => {
-    console.log(response.rows);
+    if (error) {
+      callback(error, null);
+    } else {
+      callback(null, response.rows);
+    }
+  });
+};
+
+// returns all bets currently in DB
+module.exports.getAllBets = (callback) => {
+  pool.query('SELECT * FROM bet', (error, response) => {
     if (error) {
       callback(error, null);
     } else {

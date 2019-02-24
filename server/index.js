@@ -61,7 +61,28 @@ app.get('/games', (req, res) => {
     }
   });
 
+  // on client side
   // show list of games
+  // each game listing has related bets listed
+  // each game can have new bets posted
+  // each bet listed can be accepted
+});
+
+app.get('/bets', (req, res) => {
+  // getting all bets from the DB
+  // each bet has a unique identifier
+  // allows user to see and accept bets to a specific game
+  db.getAllBets((err, bets) => {
+    if (err) {
+      console.log(err);
+      res.send(500);
+    } else {
+      res.status(200).send(bets);
+    }
+  });
+
+  // on client side
+  // show list of bets
   // each game listing has related bets listed
   // each game can have new bets posted
   // each bet listed can be accepted
@@ -74,9 +95,8 @@ app.get('/games', (req, res) => {
 
 
 app.get('/api/users', (req, res) => {
-  // TODO - your code here!
-  // use db.getallphrases function to get all phrases
-  db.getAllUsers((error, response) => {
+  // use db.getallUsers function to get all users
+  db.getAllUsers((error, users) => {
     // if error
     if (error) {
       // console.log error
@@ -86,7 +106,7 @@ app.get('/api/users', (req, res) => {
     } else {
       // if no error
       // send back query results in res.send
-      res.send(response);
+      res.send(users);
     }
   });
 });
