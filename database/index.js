@@ -34,16 +34,34 @@ module.exports.getAllUsers = (callback) => {
   });
 };
 
+// gets user from DB
+// if user doesn't exist
+// then the user will be created
 module.exports.getUserByUsername = (username, callback) => {
-  pool.query('SELECT * FROM app_user WHERE username = $1',
+  // query database
+  pool.query('SELECT * FROM app_user WHERE username = $1;',
     [username], (error, user) => {
       if (error) {
         callback(error, null);
-      } else {
-        callback(null, user.rows);
       }
+      // user exists
+      // then return user
+      callback(null, user.rows);
     });
 };
+
+// module.exports.createUserByUsername = (username, callback) => {
+//   // query database
+//   pool.query('INSERT INTO app_user(username, points) VALUES($1, 5000) RETURNING *;',
+//     [username], (err, newUser) => {
+//       if (err) {
+//         callback(err, null);
+//       } else {
+//         // then return user
+//         callback(null, newUser.rows);
+//       }
+//     });
+// };
 
 module.exports.saveAllTeams = (teamsArray) => {
   teamsArray.forEach((team) => {

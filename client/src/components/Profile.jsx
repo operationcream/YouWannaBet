@@ -38,7 +38,7 @@ class Profile extends Component {
             <h2> Welcome {profile.nickname}! </h2>
           </div>
           <div>
-            <h3> You currently have { points } points! </h3>
+            <h3> You currently have { points } points. </h3>
           </div>
           <pre>{JSON.stringify(profile)}</pre>
         </div>
