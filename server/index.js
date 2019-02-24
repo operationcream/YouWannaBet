@@ -48,30 +48,6 @@ app.get('/api/allTeams', (req, res) => {
     });
 });
 
-app.get('/api/allTeams', (req, res) => {
-  axios.get('http://data.nba.net/prod/v2/2018/teams.json')
-    .then(({ data }) => {
-      // console.log(data.league.vegas);
-      // Have Teams Now Send to Database
-      const league = data.league.vegas;
-      const sendToDatabase = [];
-      // Structure each team's object //
-      league.forEach((team) => {
-        const teamInfo = {};
-        teamInfo.team_name = team.fullName;
-        teamInfo.nba_id = team.teamId;
-        teamInfo.tri_code = team.tricode;
-        sendToDatabase.push(teamInfo);
-      });
-      // Send the Array of objects containing all teams to the function to save to database //
-      db.saveAllTeams(sendToDatabase);
-    }).then(() => {
-      res.sendStatus(200);
-    }).catch((err) => {
-      console.log(err);
-    });
-});
-
 app.get('/games', (req, res) => {
   // getting all games from the DB
   // each game has a unique identifier
@@ -134,23 +110,37 @@ app.get('/api/bets/:teamId', (req, res) => {
 // adds single bet to database (used when user initially posts bet)
 app.put('/api/bets/', (req, res) => {
   // save single bet to database
-  db.saveBet(posterId, amount, gameId);
+  const { gameId } = req.body;
+  const { amount } = req.body;
+  const { posterId } = req.body;
   // takes in user id (poster), amount, id_game
-  // returns insert id to client (or whatever result is)
+  db.saveBet(gameId, amount, posterId, (err, insertedBet) => {
+    if (err) {
+      console.log(err);
+      res.send(500);
+    } else {
+      // returns confirmation and insertedbet object
+      res.status(200).send(insertedBet);
+    }
+  });
 });
 
 // updates single bet in DB (used when user accepts bet)
 app.patch('/api/bets/', (req, res) => {
   // takes in user id (acceptor) and bet id
+  const { acceptorId } = req.body;
+  const { betId } = req.body;
   // updates record in database
-  // returns insert id to client (or whatever result is)
+  db.updateBet(acceptorId, betId, (err, insertResult) => {
+    if (err) {
+      console.log(err);
+      res.send(500);
+    } else {
+      // returns confirmation and insertedbet object
+      res.status(200).send(insertResult);
+    }
+  });
 });
-
-// server request to handle
-// app.get('/api/userInfo', (req, res) => {
-
-// });
-
 
 app.get('/api/users', (req, res) => {
   // use db.getallUsers function to get all users
