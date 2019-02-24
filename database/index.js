@@ -87,3 +87,13 @@ module.exports.getAllBets = (callback) => {
     }
   });
 };
+
+module.exports.getBetsByTeam = (teamId, callback) => {
+  pool.query('SELECT * FROM bet WHERE id_game IN (SELECT id_game FROM game WHERE id_team_home = $1 OR id_team_away = $1);', [teamId], (error, games) => {
+    if (error) {
+      callback(error, null);
+    } else {
+      callback(null, games.rows);
+    }
+  });
+};
