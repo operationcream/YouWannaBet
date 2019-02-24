@@ -35,6 +35,26 @@ module.exports.getAllUsers = (callback) => {
   });
 };
 
+module.exports.saveBet = (gameId, amount, posterId, callback) => {
+  pool.query('INSERT INTO bet (id_game, amount, id_user_poster) VALUES($1, $2, $3) RETURNING *;',
+    [gameId, amount, posterId], (error, insertResult) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        callback(null, insertResult.rows);
+      }
+    });
+    
+  module.exports.updateBet = (acceptorId, betId, callback) => {
+    pool.query('UPDATE bet SET id_user_acceptor = $1 WHERE id_bet = $2;',
+      [acceptorId, betId], (error, insertResult) => {
+        if (error) {
+          callback(error, null);
+        } else {
+          callback(null, insertResult);
+        }
+      });
+
 module.exports.saveAllTeams = (teamsArray) => {
   teamsArray.forEach((team) => {
     // eslint-disable-next-line no-param-reassign
