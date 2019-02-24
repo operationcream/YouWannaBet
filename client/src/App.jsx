@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import { AppBar, Toolbar } from 'material-ui';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+    };
+  }
+
   componentDidMount() {
     const { renewSession } = this.props.auth;
 
     if (localStorage.getItem('isLoggedIn') === 'true') {
       renewSession();
     }
+  }
+
+  handleDrawerToggle() {
+    this.setState({ open: !this.state.open });
   }
 
   goTo(route) {
@@ -26,50 +37,47 @@ class App extends Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
+
     return (
       <div>
         <MuiThemeProvider>
           <AppBar>
-            <button
-          // bsStyle="primary"
+            <IconButton
               type="button"
               className="btn-margin"
               onClick={this.goTo.bind(this, 'home')}
             >
           Home
-            </button>
-            <button
-          // bsStyle="primary"
+            </IconButton>
+            <IconButton
               type="button"
               className="btn-margin"
               onClick={this.goTo.bind(this, 'search')}
             >
           Search
-            </button>
+            </IconButton>
             {
           !isAuthenticated() && (
-            <button
+            <IconButton
               id="qsLoginBtn"
-              // bsStyle="primary"
               type="button"
               className="btn-margin"
               onClick={this.login.bind(this)}
             >
               Log In
-            </button>
+            </IconButton>
           )
         }
             {
           isAuthenticated() && (
-            <button
+            <IconButton
               id="qsLogoutBtn"
-              // bsStyle="primary"
               type="button"
               className="btn-margin"
               onClick={this.logout.bind(this)}
             >
               Log Out
-            </button>
+            </IconButton>
           )
         }
           </AppBar>
