@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import { AppBar, Toolbar } from 'material-ui';
 
 class App extends Component {
