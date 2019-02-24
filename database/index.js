@@ -47,7 +47,6 @@ module.exports.getAllUsers = (callback) => {
 //     }
 //   }
 
-<<<<<<< HEAD
 const getUserInfo = (userId, callback) => {
   pool.query('SELECT * FROM app_user WHERE id_user = ($1)', [userId], (err, res) => {
     if (err) {
@@ -73,9 +72,7 @@ const getUserBets = (userId, callback) => {
 };
 
 const saveAllTeams = (teamsArray) => {
-=======
 module.exports.saveAllTeams = (teamsArray) => {
->>>>>>> dd8ff5d6f469dc784d8cbc745cc5562cfc30632b
   teamsArray.forEach((team) => {
     // eslint-disable-next-line no-param-reassign
     team.nba_id = parseInt(team.nba_id, 10);

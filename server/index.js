@@ -48,7 +48,6 @@ app.get('/api/allTeams', (req, res) => {
     });
 });
 
-<<<<<<< HEAD
 // server request that will query DB to retrieve userInfo
 app.get('/api/userInfo', (req, res) => {
   console.log(req);
@@ -62,7 +61,6 @@ app.get('/api/userInfo', (req, res) => {
     }
   });
 });
-=======
 app.get('/api/allTeams', (req, res) => {
   axios.get('http://data.nba.net/prod/v2/2018/teams.json')
     .then(({ data }) => {
@@ -165,7 +163,6 @@ app.patch('/api/bets/', (req, res) => {
 // app.get('/api/userInfo', (req, res) => {
 
 // });
->>>>>>> dd8ff5d6f469dc784d8cbc745cc5562cfc30632b
 
 // server request that will query DB to retrieve usersBets
 app.get('/api/userBets', (req, res) => {
@@ -189,36 +186,4 @@ app.get('/api/users', (req, res) => {
   });
 });
 
-<<<<<<< HEAD
-// goes into the DB by
-app.put('/api/bets', (req, res) => {
-
-});
-
-// Register a service
-app.use('/todos', {
-  get(id) {
-    return Promise.resolve({ id });
-  },
-});
-
-// Register an Express middleware
-app.use('/test', (req, res) => {
-  res.json({
-    message: 'Hello world from Express middleware',
-  });
-});
-
-// Register multiple Express middleware functions
-app.use('/test', (req, res, next) => {
-  res.data = 'Step 1 worked';
-  next();
-}, (req, res) => {
-  res.json({
-    message: `Hello world from Express middleware ${res.data}`,
-  });
-});
-
-=======
->>>>>>> dd8ff5d6f469dc784d8cbc745cc5562cfc30632b
 app.listen(port, () => console.log(`listening on port ${port}!`));
