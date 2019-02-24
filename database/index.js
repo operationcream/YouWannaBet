@@ -66,11 +66,13 @@ module.exports.saveAllTeams = (teamsArray) => {
   });
 };
 
+// Takes the TriCode from Search and get all team info from database //
 module.exports.getIDFromTri = (triCode, callback) => {
   const query = {
     // give the query a unique name
     name: 'fetch-user',
     text: 'SELECT * FROM team WHERE tri_code = $1',
+    
     values: [triCode],
   };
   pool.query(query, (err, response) => {
