@@ -3,19 +3,6 @@ require('dotenv').config();
 // check out https://node-postgres.com/
 // for docs
 
-// await method ///////
-// uncomment BELOW to use
-// const { Client } = require('pg')
-// const client = new Client()
-
-// await client.connect()
-
-// const res = await client.query('SELECT $1::text as message', ['Hello world!'])
-// console.log(res.rows[0].message) // Hello world!
-// await client.end()
-
-
-// callback method /////////
 const pg = require('pg');
 
 const config = {
@@ -37,7 +24,7 @@ pool.connect((error) => {
   }
 });
 
-const getAllUsers = (callback) => {
+module.exports.getAllUsers = (callback) => {
   pool.query('SELECT * FROM app_user', (error, response) => {
     console.log(response.rows);
     if (error) {
@@ -48,7 +35,7 @@ const getAllUsers = (callback) => {
   });
 };
 
-// const updateBet = (idUser, idBet, callback) => {
+// module.exports.updateBet = (idUser, idBet, callback) => {
 //   const query = [idUser, idBet];
 //   pool.query('UPDATE bet SET idUser = ? WHERE idBet = ?', query, (error, updatedBet) => {
 //     if (error) {
@@ -60,7 +47,7 @@ const getAllUsers = (callback) => {
 //     }
 //   }
 
-const saveAllTeams = (teamsArray) => {
+module.exports.saveAllTeams = (teamsArray) => {
   teamsArray.forEach((team) => {
     // eslint-disable-next-line no-param-reassign
     team.nba_id = parseInt(team.nba_id, 10);
@@ -79,14 +66,34 @@ const saveAllTeams = (teamsArray) => {
   });
 };
 
-// client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
-//   console.log(err ? err.stack : res.rows[0].message);
-//   // Hello World!
-//   client.end();
-// });
+// returns all games currently in DB
+module.exports.getAllGames = (callback) => {
+  pool.query('SELECT * FROM game', (error, response) => {
+    if (error) {
+      callback(error, null);
+    } else {
+      callback(null, response.rows);
+    }
+  });
+};
 
-module.exports = {
-  getAllUsers,
-  // updateBet,
-  saveAllTeams,
+// returns all bets currently in DB
+module.exports.getAllBets = (callback) => {
+  pool.query('SELECT * FROM bet', (error, response) => {
+    if (error) {
+      callback(error, null);
+    } else {
+      callback(null, response.rows);
+    }
+  });
+};
+
+module.exports.getBetsByTeam = (teamId, callback) => {
+  pool.query('SELECT * FROM bet WHERE id_game IN (SELECT id_game FROM game WHERE id_team_home = $1 OR id_team_away = $1);', [teamId], (error, games) => {
+    if (error) {
+      callback(error, null);
+    } else {
+      callback(null, games.rows);
+    }
+  });
 };

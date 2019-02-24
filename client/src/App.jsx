@@ -26,50 +26,47 @@ class App extends Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
+
     return (
       <div>
         <MuiThemeProvider>
           <AppBar>
-            <button
-          // bsStyle="primary"
+            <IconButton
               type="button"
               className="btn-margin"
               onClick={this.goTo.bind(this, 'home')}
             >
           Home
-            </button>
-            <button
-          // bsStyle="primary"
+            </IconButton>
+            <IconButton
               type="button"
               className="btn-margin"
               onClick={this.goTo.bind(this, 'search')}
             >
           Search
-            </button>
+            </IconButton>
             {
           !isAuthenticated() && (
-            <button
+            <IconButton
               id="qsLoginBtn"
-              // bsStyle="primary"
               type="button"
               className="btn-margin"
               onClick={this.login.bind(this)}
             >
               Log In
-            </button>
+            </IconButton>
           )
         }
             {
           isAuthenticated() && (
-            <button
+            <IconButton
               id="qsLogoutBtn"
-              // bsStyle="primary"
               type="button"
               className="btn-margin"
               onClick={this.logout.bind(this)}
             >
               Log Out
-            </button>
+            </IconButton>
           )
         }
           </AppBar>

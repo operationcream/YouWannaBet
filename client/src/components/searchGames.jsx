@@ -2,7 +2,6 @@ import React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 class Search extends React.Component {
@@ -14,7 +13,7 @@ class Search extends React.Component {
     };
     this.getTeams = this.getTeams.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.getGames = this.getGames.bind(this)
+    this.getGames = this.getGames.bind(this);
   }
 
   getGames(teamObject) {
@@ -74,14 +73,12 @@ class Search extends React.Component {
             <MenuItem value="OKC" primaryText="Thunder" />
             <MenuItem value="POR" primaryText="Trail Blazers" />
             <MenuItem value="GSW" primaryText="Warriors" />
-            <MenuItem value="WAS" primaryText="Wizzards" />
+            <MenuItem value="WAS" primaryText="Wizards" />
           </DropDownMenu>
         </MuiThemeProvider>
       </div>
     );
   }
 }
-
-// ReactDOM.render(<Search />, document.getElementById('app'));
 
 export default Search;
