@@ -1,26 +1,15 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import { AppBar, Toolbar } from 'material-ui';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-    };
-  }
-
   componentDidMount() {
     const { renewSession } = this.props.auth;
 
     if (localStorage.getItem('isLoggedIn') === 'true') {
       renewSession();
     }
-  }
-
-  handleDrawerToggle() {
-    this.setState({ open: !this.state.open });
   }
 
   goTo(route) {

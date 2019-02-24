@@ -20,7 +20,7 @@ app.use('/callback', express.static(`${__dirname}/../client/dist`));
 app.post('/api/games', (req, res) => {
   const teamName = req.body;
   console.log(req.body);
-  res.send(req.body);
+  res.send(teamName);
 });
 
 // Sends Get Request to API for Teams
@@ -168,6 +168,5 @@ app.get('/api/users', (req, res) => {
     }
   });
 });
-
 
 app.listen(port, () => console.log(`listening on port ${port}!`));

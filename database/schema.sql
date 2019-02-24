@@ -46,7 +46,6 @@ INSERT INTO app_user(username, password, points) values('frank_enstein', '123Pas
 INSERT INTO app_user(username, password, points) values('ella_vader', '123Password', 1000);
 INSERT INTO app_user(username, password, points) values('jed_dye', '123Password', 75000);
 
--- // hey laura how do i put a new gme in there?
 INSERT INTO game(game_date, id_team_home, id_team_away, score_home, score_away, id_nba_team) 
 values('2019-03-06', 273, 277, null, null, '0021800969');
 
