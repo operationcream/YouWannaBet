@@ -25,7 +25,6 @@ class Dashboard extends React.Component {
         this.setState({
           userBets: userBet.data.rows,
         });
-        console.log('bets',userBet.data.rows);
       })
       .catch((err) => {
         console.log(err, 'unable to get userBets');
@@ -46,7 +45,7 @@ class Dashboard extends React.Component {
 
   render() {
     const { userBets, userInfo } = this.state;
-    console.log(userInfo);
+    console.log(userBets);
     return (
       <User
         userBets={userBets}
