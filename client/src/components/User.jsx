@@ -9,32 +9,14 @@ import UserBetList from './UserBetList.jsx';
 import UserInfo from './UserInfo.jsx';
 // welcomes user, list points and contains the users bets
 
-const User = ({ userInfo, userBets }) => (
+const User = ({ userInfo }) => (
   <div>
-    {/* <header className="userHeader">
-      <img src={banner} className="app-logo" alt="logo" />
-    </header> */}
-
     <h1>USER STUFF</h1>
-    <UserInfo userInfo={userInfo} />
-    <UserBetList userBets={userBets} />
-
-    {/* <div className="userMain">
-      <span className="logo">User</span>
-    </div>
-    <div>
-      <UserBetList />
-    </div> */}
+    {/* <h1>{userInfo[0]}</h1> */}
+    { userInfo.map(user => <UserInfo key={user.id_user} userInfo={user} />)}
+    {/* <UserInfo userInfo={userInfo} /> */}
+    {/* <UserBetList userBets={userBets} /> */}
   </div>
-  // <div>
-  //   <div className="Nav">
-  //   <span className="userMain">
-  //   </span>
-  //   </div>
-  //   <h3>User stuff</h3>
-  //   <UserBetList />
-
-  // </div>
 );
 
 export default User;
