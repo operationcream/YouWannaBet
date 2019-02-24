@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
-// import axios from 'axios';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Button from '@material-ui/core/Button';
+import { AppBar, Toolbar } from 'material-ui';
 
 class App extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     items: [],
-  //     loggedIn: false,
-  //   };
-  // }
-
   componentDidMount() {
     const { renewSession } = this.props.auth;
 
@@ -33,42 +26,51 @@ class App extends Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
+
     return (
       <div>
-        <button
-          // bsStyle="primary"
-          type="button"
-          className="btn-margin"
-          onClick={this.goTo.bind(this, 'home')}
-        >
+        <MuiThemeProvider>
+          <AppBar>
+            <IconButton
+              type="button"
+              className="btn-margin"
+              onClick={this.goTo.bind(this, 'home')}
+            >
           Home
-        </button>
-        {
+            </IconButton>
+            <IconButton
+              type="button"
+              className="btn-margin"
+              onClick={this.goTo.bind(this, 'search')}
+            >
+          Search
+            </IconButton>
+            {
           !isAuthenticated() && (
-            <button
+            <IconButton
               id="qsLoginBtn"
-              // bsStyle="primary"
               type="button"
               className="btn-margin"
               onClick={this.login.bind(this)}
             >
               Log In
-            </button>
+            </IconButton>
           )
         }
-        {
+            {
           isAuthenticated() && (
-            <button
+            <IconButton
               id="qsLogoutBtn"
-              // bsStyle="primary"
               type="button"
               className="btn-margin"
               onClick={this.logout.bind(this)}
             >
               Log Out
-            </button>
+            </IconButton>
           )
         }
+          </AppBar>
+        </MuiThemeProvider>
       </div>
     );
   }
