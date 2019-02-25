@@ -3,6 +3,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
+import GameBetList from './GameBetList.jsx';
 import sampleData from './exampleData.js';
 import SearchGamesList from './searchGamesTeamListExisting.jsx';
 
@@ -42,6 +43,12 @@ class Search extends React.Component {
   }
 
   render() {
+    const gameInfo = {
+      homeTeam: 'Cleveland Cavaliers',
+      awayTeam: 'Detroit Pistons',
+      teamId: '277',
+      date: '2019-03-02',
+    };
     const { games, teams, selection } = this.state;
     return (
       <div>
@@ -83,7 +90,8 @@ class Search extends React.Component {
             <MenuItem value="WAS" primaryText="Wizards" />
           </DropDownMenu>
         </MuiThemeProvider>
-        <SearchGamesList 
+        <GameBetList gameInfo={gameInfo} />
+        <SearchGamesList
           games={games}
           teams={teams}
           selection={selection}
