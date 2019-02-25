@@ -3,6 +3,14 @@ import React from 'react';
 const SearchGamesList = (props) => {
 console.log(props);
   let teams = props.teams;
+  let selection = props.selection;
+  let currentTeam = 'Team Selected';
+  teams.forEach((team) => {
+    if (team.tricode === selection) {
+      currentTeam = team.fullName;
+    }
+  });
+
   let games = props.games;
   let today = new Date().toISOString().slice(0, 10).split('-');
   today = today.join('');
@@ -34,7 +42,7 @@ console.log(props);
 
   return (
     <div className="teamBetList">
-      <h3>List of Bets</h3>
+      <h3>Next Ten Games for the {currentTeam}</h3>
     </div>
   );
 };
