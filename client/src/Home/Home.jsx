@@ -20,7 +20,9 @@ class Home extends Component {
               </h4>
               <div className="col-md-6 offset-md-3">
                 <Profile auth={this.auth} {...this.props} />
+                {/* restructure profile to set a state on home and pass to dashboard and search */}
                 <Dashboard auth={this.auth} {...this.props} />
+                {/* // move search component to here  */}
               </div>
             </div>
           )

@@ -3,6 +3,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
+import GameBetList from './GameBetList.jsx';
 
 class Search extends React.Component {
   constructor() {
@@ -36,6 +37,12 @@ class Search extends React.Component {
   }
 
   render() {
+    const gameInfo = {
+      homeTeam: 'Cavaliers',
+      awayTeam: 'the other team',
+      teamId: '277',
+
+    };
     return (
       <div>
         <MuiThemeProvider>
@@ -76,9 +83,29 @@ class Search extends React.Component {
             <MenuItem value="WAS" primaryText="Wizards" />
           </DropDownMenu>
         </MuiThemeProvider>
+        <GameBetList gameInfo={gameInfo} />
       </div>
     );
   }
 }
 
 export default Search;
+
+// additional component to accept and post bets
+  // render single game info
+  // home team and away team
+  // bets that are posted, but not yet accepted
+  // option to post your own bet
+
+// brian has
+
+// game date formatted like 2019-03-02
+// nba team ID
+
+// nba id
+// team names
+// tricode
+
+
+// ideal info to get
+// db id_game
