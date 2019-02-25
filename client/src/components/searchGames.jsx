@@ -14,10 +14,18 @@ class Search extends React.Component {
       selection: 'SEL',
       games: [],
       teams: sampleData,
+      view: 'Search',
+      game: {},
     };
     this.getTeams = this.getTeams.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getGames = this.getGames.bind(this);
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick(clickedGame) {
+    this.setState({ view: 'Bet'});
+    this.setState({ game: clickedGame })
   }
 
   getGames(teamObject) {
@@ -30,6 +38,7 @@ class Search extends React.Component {
       });
   }
 
+
   getTeams() {
     return axios.get('/api/allTeams')
     // Once we get the Data Back from the APi we need to structure and Save in DB
@@ -41,8 +50,9 @@ class Search extends React.Component {
     this.getGames({ team: value });
   }
 
+
   render() {
-    const { games, teams, selection } = this.state;
+    const { games, teams, selection, view, game } = this.state;
     return (
       <div>
         <MuiThemeProvider>
@@ -83,11 +93,15 @@ class Search extends React.Component {
             <MenuItem value="WAS" primaryText="Wizards" />
           </DropDownMenu>
         </MuiThemeProvider>
-        <SearchGamesList 
+        {view === 'Search' ? (
+<SearchGamesList
           games={games}
           teams={teams}
           selection={selection}
+          onClick={this.onClick}
         />
+) : <GameBetList game={game}/>}
+        
       </div>
     );
   }
