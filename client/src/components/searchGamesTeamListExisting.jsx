@@ -28,16 +28,18 @@ console.log(props);
     const formattedGame = {};
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < teams.length; i++) {
+      let date = game.homeStartDate;
+      date = date.split('');
+      date = `${date[0]}${date[1]}${date[2]}${date[3]}-${date[4]}${date[5]}-${date[6]}${date[7]}`;
+      formattedGame.Date = date;
       if (game.hTeam.teamId === teams[i].teamId) {
         formattedGame.HomeTeam = teams[i].fullName;
       } else if (game.vTeam.teamId === teams[i].teamId) {
         formattedGame.AwayTeam = teams[i].fullName;
       }
-      formattedGame.Date = game.homeStartDate;
     }
     formattedGames.push(formattedGame);
   });
-
   console.log(formattedGames);
 
   return (
