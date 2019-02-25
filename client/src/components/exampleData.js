@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const vegas = [
+const data = [
   {
     isNBAFranchise: true,
     isAllStar: false,
@@ -391,3 +391,5 @@ const vegas = [
     divName: '',
   },
 ];
+
+export default data;

@@ -3,6 +3,8 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
+import sampleData from './exampleData.js';
+import SearchGamesList from './searchGamesTeamListExisting.jsx';
 
 class Search extends React.Component {
   constructor() {
@@ -10,6 +12,8 @@ class Search extends React.Component {
 
     this.state = {
       selection: 'SEL',
+      games: [],
+      teams: sampleData,
     };
     this.getTeams = this.getTeams.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -17,10 +21,12 @@ class Search extends React.Component {
   }
 
   getGames(teamObject) {
-    console.log(teamObject.team);
-    return axios.post('/api/games', teamObject)
-      .then(({ data }) => {
-        console.log(data);
+    // console.log(teamObject.team);
+    axios.post('/api/games', teamObject)
+      .then(({ data }) => data).then((data) => {
+        // console.log(data);
+        this.setState({ games: data });
+        console.log(this.state);
       });
   }
 
@@ -36,6 +42,7 @@ class Search extends React.Component {
   }
 
   render() {
+    const { bets } = this.state;
     return (
       <div>
         <MuiThemeProvider>
@@ -76,6 +83,7 @@ class Search extends React.Component {
             <MenuItem value="WAS" primaryText="Wizards" />
           </DropDownMenu>
         </MuiThemeProvider>
+        <SearchGamesList bets={bets} />
       </div>
     );
   }

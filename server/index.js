@@ -20,8 +20,38 @@ app.use('/callback', express.static(`${__dirname}/../client/dist`));
 app.post('/api/games', (req, res) => {
   const teamName = req.body;
   console.log(req.body);
-  res.send(teamName);
+  db.getIDFromTri(teamName.team, (err, team) => {
+    if (err) {
+      console.log(err);
+      res.send(500);
+    } else {
+      // Destructure information I need to send to database and NBA
+      const nbaId = team[0].nba_id;
+      console.log(nbaId);
+      const id = team[0].id_team;
+      // call get bets to return an array of bets by single team
+      // db.getBetsByTeam(id, (error, bets) => {
+      //   if (error) {
+      //     console.log(error);
+      //     res.send(500);
+      //   } else {
+      //     res.status(200).send(bets);
+      //   }
+      // });
+
+      // Send Get Request to the API //
+      axios.get(`http://data.nba.net//prod/v1/2018/teams/${nbaId}/schedule.json`)
+        .then((games, errs) => {
+          if (err) {
+            console.log(errs);
+          }
+          // console.log(games.data.vegas);
+          res.send(games.data.league.standard);
+        });
+    }
+  });
 });
+
 
 // Sends Get Request to API for Teams
 app.get('/api/allTeams', (req, res) => {
