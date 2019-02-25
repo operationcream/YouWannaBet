@@ -78,6 +78,31 @@ app.get('/api/allTeams', (req, res) => {
     });
 });
 
+
+app.get('/api/allTeams', (req, res) => {
+  axios.get('http://data.nba.net/prod/v2/2018/teams.json')
+    .then(({ data }) => {
+      // console.log(data.league.vegas);
+      // Have Teams Now Send to Database
+      const league = data.league.vegas;
+      const sendToDatabase = [];
+      // Structure each team's object //
+      league.forEach((team) => {
+        const teamInfo = {};
+        teamInfo.team_name = team.fullName;
+        teamInfo.nba_id = team.teamId;
+        teamInfo.tri_code = team.tricode;
+        sendToDatabase.push(teamInfo);
+      });
+      // Send the Array of objects containing all teams to the function to save to database //
+      db.saveAllTeams(sendToDatabase);
+    }).then(() => {
+      res.sendStatus(200);
+    }).catch((err) => {
+      console.log(err);
+    });
+});
+
 app.get('/games', (req, res) => {
   // getting all games from the DB
   // each game has a unique identifier
@@ -174,7 +199,6 @@ app.patch('/api/bets/', (req, res) => {
 
 
 // server request that will query DB to retrieve userInfo
-// TODO gets the correct response in postman, need to make sure it works on client side and make sure getting id correctly
 app.get('/api/userInfo/:userId', (req, res) => {
   const { userId } = req.params;
   // const { id } = req.query;
@@ -191,15 +215,56 @@ app.get('/api/userInfo/:userId', (req, res) => {
 // server request that will query DB to retrieve usersBets
 // TODO gets the correct response in postman, need to make sure it works on client side and make sure getting id correctly
 app.get('/api/userBets/:userId', (req, res) => {
-  const { userId } = req.params;
-  db.getUserBets(userId, (err, userBets) => {
-    if (err) {
-      res.status(500).send('unable to ger user bets');
-    } else {
-      console.log('sending bets');
-      res.send(userBets);
-    }
-  });
+
+  const userBets = [
+    {
+      date: '2/25/2018',
+      wager: 600,
+      team_away: 'Portland Trail Blazers',
+      team_home: 'Cleveland Cavaliers',
+      opponent: 'frank_enstein',
+      userWinnerChoice: 'Cleveland Cavaliers',
+    },
+  ];
+  // res.send('AHHHHH')
+  // const { userId } = req.params;
+  // db.getUserBets(userId, (err, userBets) => {
+  //   const allUserBets = [];
+  //   if (err) {
+  //     res.status(500).send('unable to ger user bets');
+  //   } else {
+  //     userBets.rows.forEach((userBet) => {
+  //       const bet = {};
+
+  //       bet.date = userBet.date_created;
+  //       bet.wager = userBet.amount;
+
+  //       db.getGameById(userBet.id_game, (errr, ress) => {
+  //         if (errr) {
+  //           console.log(err);
+  //         } else {
+  //           console.log(ress[0], 'AHHHHHHHH');
+  //           db.getTeamById(ress[0].id_team_home, (error, resss) => {
+  //             if (error) {
+  //               console.log(error);
+  //             } else {
+  //               bet.homeTeam = resss.team_name;
+  //             }
+  //           });
+  //         }
+  //       });
+  //       // console.log(bet);
+  //       // setTimeout(() => { allUserBets.push(bet); }, 2000);
+  //       allUserBets.push(bet);
+  //     });
+  //     console.log(allUserBets, 'MEOWWWWWWW');
+
+  //     if (res.length === allUserBets.length) {
+  //       res.send(allUserBets);
+  //     }Z
+  //     // console.log(allUserBets);
+  //   }
+  // });
 });
 
 app.get('/api/users', (req, res) => {

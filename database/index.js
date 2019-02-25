@@ -162,6 +162,47 @@ module.exports.getGameById = (gameId, callback) => {
     });
 };
 
+// get all users games 
+
+module.exports.getAllUsersBetFormed = (userId, callback) => {
+  // const bets = {}; 
+  const allUserBets = [];
+  console.log('HEYYYY THERE ');
+  // getUserBets(userId, (err, userBets) => {
+  //   if (err) {
+  //     // res.status(500).send('unable to ger user bets');
+  //     console.log('whoa there, error');
+  //     callback(err);
+  //   } else {
+  //     userBets.rows.forEach((userBet) => {
+  //       const bet = {};
+
+  //       bet.date = userBet.date_created;
+  //       bet.wager = userBet.amount;
+
+  //       getGameById(userBet.id_game, (errr, ress) => {
+  //         if (errr) {
+  //           console.log(err, 'in db');
+  //         } else {
+  //           console.log(ress[0], 'AHHHHHHHH');
+  //           getTeamById(ress[0].id_team_home, (error, resss) => {
+  //             if (error) {
+  //               console.log(error);
+  //             } else {
+  //               bet.homeTeam = resss.team_name;
+  //             }
+  //           });
+  //         }
+  //       });
+  //       console.log(bet);
+  //       allUserBets.push(bet);
+  //       // setTimeout(() => { allUserBets.push(bet); }, 2000);
+  //       callback(null, userBets);
+  //     });
+  //   }
+  // });
+};
+
 // returns all bets currently in DB
 module.exports.getAllBets = (callback) => {
   pool.query('SELECT * FROM bet', (error, response) => {
@@ -184,6 +225,7 @@ module.exports.getBetsByTeam = (teamId, callback) => {
 };
 
 // helper function to query DB to retrieve user bets from acceptor and poster field
+// RETURNS wager amount, date, and foreign keys for game, acceptor and poster
 module.exports.getUserBets = (userId, callback) => {
   pool.query('SELECT * FROM bet WHERE ($1) IN (id_user_acceptor, id_user_poster)', [userId], (err, res) => {
     if (err) {
@@ -196,13 +238,14 @@ module.exports.getUserBets = (userId, callback) => {
   });
 };
 
-// return array of objects
-
-// single object
-
-// { hometeam name
-//   away team name
-//   acceptor
-//   game Date
-//   amount wagered
-// }
+module.exports.getTeamById = (teamId, callback) => {
+  pool.query('SELECT * FROM team WHERE id_team = ($1)', [teamId], (err, res) => {
+    if (err) {
+      console.log('error getting teamsbyid');
+      callback(err);
+    } else {
+      console.log('successfully getting teamsbyid');
+      callback(null, res);
+    }
+  });
+};
