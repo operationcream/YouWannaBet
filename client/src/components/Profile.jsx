@@ -42,12 +42,11 @@ class Profile extends Component {
         <div className="profile-area">
           <img src={profile.picture} alt="profile" />
           <div>
-            <h2> Welcome {profile.nickname}! </h2>
+            <h2> Welcome {profile.nickname} </h2>
           </div>
           <div>
-            <h3> You currently have { points } points. </h3>
+            <h3> You currently have { points } points. Go check out some games!</h3>
           </div>
-          <pre>{JSON.stringify(profile)}</pre>
         </div>
       </div>
     );
