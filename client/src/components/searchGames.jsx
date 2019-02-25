@@ -26,7 +26,7 @@ class Search extends React.Component {
       .then(({ data }) => data).then((data) => {
         // console.log(data);
         this.setState({ games: data });
-        console.log(this.state);
+        // console.log(this.state);
       });
   }
 
@@ -42,7 +42,7 @@ class Search extends React.Component {
   }
 
   render() {
-    const { bets } = this.state;
+    const { games, teams, selection } = this.state;
     return (
       <div>
         <MuiThemeProvider>
@@ -83,7 +83,11 @@ class Search extends React.Component {
             <MenuItem value="WAS" primaryText="Wizards" />
           </DropDownMenu>
         </MuiThemeProvider>
-        <SearchGamesList bets={bets} />
+        <SearchGamesList 
+          games={games}
+          teams={teams}
+          selection={selection}
+        />
       </div>
     );
   }
