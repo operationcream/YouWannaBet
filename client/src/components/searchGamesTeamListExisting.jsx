@@ -38,9 +38,11 @@ console.log(props);
       date = `${date[0]}${date[1]}${date[2]}${date[3]}-${date[4]}${date[5]}-${date[6]}${date[7]}`;
       formattedGame.date = date;
       if (game.hTeam.teamId === teams[i].teamId) {
-        formattedGame.homeTeam = teams[i].image;
+        formattedGame.homeTeam = teams[i].fullName;
+        formattedGame.homeTeamImage = teams[i].image;
       } else if (game.vTeam.teamId === teams[i].teamId) {
-        formattedGame.awayTeam = teams[i].image;
+        formattedGame.awayTeam = teams[i].fullName;
+        formattedGame.awayTeamImage = teams[i].image;
       }
       formattedGame.currentId = teamId;
     }
