@@ -116,6 +116,25 @@ module.exports.saveAllTeams = (teamsArray) => {
   });
 };
 
+// Takes the TriCode from Search and get all team info from database //
+module.exports.getIDFromTri = (triCode, callback) => {
+  const query = {
+    // give the query a unique name
+    name: 'fetch-user',
+    text: 'SELECT * FROM team WHERE tri_code = $1',
+
+    values: [triCode],
+  };
+  pool.query(query, (err, response) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, response.rows);
+    }
+  });
+};
+
+
 // returns all games currently in DB
 module.exports.getAllGames = (callback) => {
   pool.query('SELECT * FROM game', (error, response) => {
@@ -125,6 +144,22 @@ module.exports.getAllGames = (callback) => {
       callback(null, response.rows);
     }
   });
+};
+
+// return a game from ID //
+module.exports.getGameById = (gameId, callback) => {
+  console.log(gameId);
+  const useID = [];
+  useID.push(gameId);
+  pool.query('SELECT * FROM game WHERE id_game = $1;',
+    useID, (error, games) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        console.log(games);
+        callback(null, games.rows);
+      }
+    });
 };
 
 // returns all bets currently in DB

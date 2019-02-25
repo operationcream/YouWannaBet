@@ -20,35 +20,40 @@ app.use('/callback', express.static(`${__dirname}/../client/dist`));
 app.post('/api/games', (req, res) => {
   const teamName = req.body;
   console.log(req.body);
-  res.send(teamName);
+  db.getIDFromTri(teamName.team, (err, team) => {
+    if (err) {
+      console.log(err);
+      res.send(500);
+    } else {
+      // Destructure information I need to send to database and NBA
+      const nbaId = team[0].nba_id;
+      console.log(nbaId);
+      const id = team[0].id_team;
+      // call get bets to return an array of bets by single team
+      // db.getBetsByTeam(id, (error, bets) => {
+      //   if (error) {
+      //     console.log(error);
+      //     res.send(500);
+      //   } else {
+      //     res.status(200).send(bets);
+      //   }
+      // });
+
+      // Send Get Request to the API //
+      axios.get(`http://data.nba.net//prod/v1/2018/teams/${nbaId}/schedule.json`)
+        .then((games, errs) => {
+          if (err) {
+            console.log(errs);
+          }
+          // console.log(games.data.vegas);
+          res.send(games.data.league.standard);
+        });
+    }
+  });
 });
+
 
 // Sends Get Request to API for Teams
-app.get('/api/allTeams', (req, res) => {
-  axios.get('http://data.nba.net/prod/v2/2018/teams.json')
-    .then(({ data }) => {
-      // console.log(data.league.vegas);
-      // Have Teams Now Send to Database
-      const league = data.league.vegas;
-      const sendToDatabase = [];
-      // Structure each team's object //
-      league.forEach((team) => {
-        const teamInfo = {};
-        teamInfo.team_name = team.fullName;
-        teamInfo.nba_id = team.teamId;
-        teamInfo.tri_code = team.tricode;
-        sendToDatabase.push(teamInfo);
-      });
-      // Send the Array of objects containing all teams to the function to save to database //
-      db.saveAllTeams(sendToDatabase);
-    }).then(() => {
-      res.sendStatus(200);
-    }).catch((err) => {
-      console.log(err);
-    });
-});
-
-
 app.get('/api/allTeams', (req, res) => {
   axios.get('http://data.nba.net/prod/v2/2018/teams.json')
     .then(({ data }) => {

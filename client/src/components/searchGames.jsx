@@ -4,6 +4,8 @@ import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
 import GameBetList from './GameBetList.jsx';
+import sampleData from './exampleData.js';
+import SearchGamesList from './searchGamesTeamListExisting.jsx';
 
 class Search extends React.Component {
   constructor() {
@@ -11,6 +13,8 @@ class Search extends React.Component {
 
     this.state = {
       selection: 'SEL',
+      games: [],
+      teams: sampleData,
     };
     this.getTeams = this.getTeams.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -18,10 +22,12 @@ class Search extends React.Component {
   }
 
   getGames(teamObject) {
-    console.log(teamObject.team);
-    return axios.post('/api/games', teamObject)
-      .then(({ data }) => {
-        console.log(data);
+    // console.log(teamObject.team);
+    axios.post('/api/games', teamObject)
+      .then(({ data }) => data).then((data) => {
+        // console.log(data);
+        this.setState({ games: data });
+        // console.log(this.state);
       });
   }
 
@@ -43,6 +49,7 @@ class Search extends React.Component {
       teamId: '277',
       date: '2019-03-02',
     };
+    const { games, teams, selection } = this.state;
     return (
       <div>
         <MuiThemeProvider>
@@ -84,28 +91,14 @@ class Search extends React.Component {
           </DropDownMenu>
         </MuiThemeProvider>
         <GameBetList gameInfo={gameInfo} />
+        <SearchGamesList
+          games={games}
+          teams={teams}
+          selection={selection}
+        />
       </div>
     );
   }
 }
 
 export default Search;
-
-// additional component to accept and post bets
-  // render single game info
-  // home team and away team
-  // bets that are posted, but not yet accepted
-  // option to post your own bet
-
-// brian has
-
-// game date formatted like 2019-03-02
-// nba team ID
-
-// nba id
-// team names
-// tricode
-
-
-// ideal info to get
-// db id_game
