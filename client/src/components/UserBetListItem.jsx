@@ -10,10 +10,10 @@ class UserBetListItem extends React.Component {
   }
 
   render() {
-    const { userBet} = this.props
+    const { userBet } = this.props;
     return (
       <div className="userBetListItem">
-        <h3>Render individual bets here</h3>
+        <h3>On {userBet.userWinnerChoice} Against {userBet.opponent} for {userBet.team_home} vs. {userBet.team_away} for {userBet.wager}</h3>
       </div>
     );
   }

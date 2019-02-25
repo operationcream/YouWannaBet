@@ -2,7 +2,6 @@ import React from 'react';
 import GameListEntry from './GameListEntry.jsx';
 // container to hold users live bets
 const SearchGamesList = (props) => {
-console.log(props);
   let onClick = props.onClick;
   let teams = props.teams;
   let selection = props.selection;
@@ -15,10 +14,9 @@ console.log(props);
     }
   });
 
-  let games = props.games;
+  const {games} = props;
   let today = new Date().toISOString().slice(0, 10).split('-');
   today = today.join('');
-  // console.log(today);
   const gamesAfterToday = [];
   let count = 0;
   games.forEach((game) => {
@@ -45,7 +43,6 @@ console.log(props);
     }
     formattedGames.push(formattedGame);
   });
-  console.log(formattedGames);
 
   return (
     <div className="teamBetList" key={'list'}>

@@ -78,17 +78,3 @@ class GameBetList extends React.Component {
 
 export default GameBetList;
 
-// additional component to accept and post bets
-// render single game info
-// home team and away team
-// bets that are posted, but not yet accepted
-// option to post your own bet
-
-// brian has
-// nba id
-// team names and nba ID
-// tricode
-// game date
-
-// ideal info to get
-// query DB ID of particular game

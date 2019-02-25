@@ -15,7 +15,6 @@ class GameBetItem extends React.Component {
 
   componentWillMount() {
     const { betInfo } = this.props;
-    console.log(betInfo);
     const betObj = {};
     this.getUserById(betInfo.id_user_acceptor)
       .then((user) => {
@@ -32,7 +31,6 @@ class GameBetItem extends React.Component {
 
   onClick() {
     axios.patch(`/api/bets?id=${this.state.bet.id}&acceptor=6`).then((result) => {
-      console.log(result);
       this.setState({ accepted: true });
     }).catch((err) => {
       console.log(err);
@@ -63,9 +61,3 @@ class GameBetItem extends React.Component {
 }
 
 export default GameBetItem;
-
-// additional component to accept and post bets
-// render single game info
-// home team and away team
-// bets that are posted, but not yet accepted
-// option to post your own bet

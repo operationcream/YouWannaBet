@@ -15,16 +15,37 @@ class Dashboard extends React.Component {
         team_home: 'Cleveland Cavaliers',
         opponent: 'frank_enstein',
         userWinnerChoice: 'Cleveland Cavaliers',
-      }],
+      },
+      {
+        date: '2/25/2018',
+        wager: 600,
+        team_away: 'Portland Trail Blazers',
+        team_home: 'Cleveland Cavaliers',
+        opponent: 'frank_enstein',
+        userWinnerChoice: 'Cleveland Cavaliers',
+      },
+      {
+        date: '2/25/2018',
+        wager: 600,
+        team_away: 'Portland Trail Blazers',
+        team_home: 'Cleveland Cavaliers',
+        opponent: 'frank_enstein',
+        userWinnerChoice: 'Cleveland Cavaliers',
+      },
+      {
+        date: '2/25/2018',
+        wager: 600,
+        team_away: 'Portland Trail Blazers',
+        team_home: 'Cleveland Cavaliers',
+        opponent: 'frank_enstein',
+        userWinnerChoice: 'Cleveland Cavaliers',
+      },
+      ],
     };
   }
 
   componentDidMount() {
-    // send request to server to retrieve users live bets
-    // where user is poster and acceptor
-    // need to send userId
-
-    const userId = 6; // NEED TO FIX THIS!!!!! how to find userId???
+    const userId = 6;
 
     axios.get(`/api/userBets/${userId}`)
       .then((userBet) => {
