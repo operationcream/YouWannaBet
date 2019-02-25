@@ -3,6 +3,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
+import GameBetList from './GameBetList.jsx';
 import sampleData from './exampleData.js';
 import SearchGamesList from './searchGamesTeamListExisting.jsx';
 
@@ -24,8 +25,8 @@ class Search extends React.Component {
   }
 
   onClick(clickedGame) {
-    this.setState({ view: 'Bet'});
-    this.setState({ game: clickedGame })
+    this.setState({ view: 'Bet' });
+    this.setState({ game: clickedGame });
   }
 
   getGames(teamObject) {
@@ -52,7 +53,9 @@ class Search extends React.Component {
 
 
   render() {
-    const { games, teams, selection, view, game } = this.state;
+    const {
+      games, teams, selection, view, game,
+    } = this.state;
     return (
       <div>
         <MuiThemeProvider>
@@ -94,14 +97,14 @@ class Search extends React.Component {
           </DropDownMenu>
         </MuiThemeProvider>
         {view === 'Search' ? (
-<SearchGamesList
-          games={games}
-          teams={teams}
-          selection={selection}
-          onClick={this.onClick}
-        />
-) : <GameBetList game={game}/>}
-        
+          <SearchGamesList
+            games={games}
+            teams={teams}
+            selection={selection}
+            onClick={this.onClick}
+          />
+        ) : <GameBetList gameInfo={game} />}
+
       </div>
     );
   }

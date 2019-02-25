@@ -26,11 +26,51 @@ pool.connect((error) => {
 
 module.exports.getAllUsers = (callback) => {
   pool.query('SELECT * FROM app_user', (error, response) => {
-    console.log(response.rows);
     if (error) {
       callback(error, null);
     } else {
       callback(null, response.rows);
+    }
+  });
+};
+
+// gets user from DB by username
+module.exports.getUserByUsername = (username, callback) => {
+  // query database
+  pool.query('SELECT * FROM app_user WHERE username = $1;',
+    [username], (error, user) => {
+      if (error) {
+        callback(error, null);
+      }
+      // user exists
+      // then return user
+      callback(null, user.rows);
+    });
+};
+
+// creates user based on username and sets default points
+module.exports.createUserByUsername = (username, callback) => {
+  // query database
+  pool.query('INSERT INTO app_user(username, points) VALUES ($1, 5000) RETURNING *;',
+    [username], (err, newUser) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        // then return user
+        callback(null, newUser.rows);
+      }
+    });
+};
+
+// helper function to query DB by ID to retrieve user name and points
+module.exports.getUserInfo = (userId, callback) => {
+  pool.query('SELECT * FROM app_user WHERE id_user = ($1);', [userId], (err, res) => {
+    if (err) {
+      console.log(err, 'there is an error getting the userInfo');
+      callback(err);
+    } else {
+      console.log('getuserInfo successful');
+      callback(null, res);
     }
   });
 };
@@ -122,6 +162,47 @@ module.exports.getGameById = (gameId, callback) => {
     });
 };
 
+// get all users games 
+
+module.exports.getAllUsersBetFormed = (userId, callback) => {
+  // const bets = {}; 
+  const allUserBets = [];
+  console.log('HEYYYY THERE ');
+  // getUserBets(userId, (err, userBets) => {
+  //   if (err) {
+  //     // res.status(500).send('unable to ger user bets');
+  //     console.log('whoa there, error');
+  //     callback(err);
+  //   } else {
+  //     userBets.rows.forEach((userBet) => {
+  //       const bet = {};
+
+  //       bet.date = userBet.date_created;
+  //       bet.wager = userBet.amount;
+
+  //       getGameById(userBet.id_game, (errr, ress) => {
+  //         if (errr) {
+  //           console.log(err, 'in db');
+  //         } else {
+  //           console.log(ress[0], 'AHHHHHHHH');
+  //           getTeamById(ress[0].id_team_home, (error, resss) => {
+  //             if (error) {
+  //               console.log(error);
+  //             } else {
+  //               bet.homeTeam = resss.team_name;
+  //             }
+  //           });
+  //         }
+  //       });
+  //       console.log(bet);
+  //       allUserBets.push(bet);
+  //       // setTimeout(() => { allUserBets.push(bet); }, 2000);
+  //       callback(null, userBets);
+  //     });
+  //   }
+  // });
+};
+
 // returns all bets currently in DB
 module.exports.getAllBets = (callback) => {
   pool.query('SELECT * FROM bet', (error, response) => {
@@ -143,27 +224,27 @@ module.exports.getBetsByTeam = (teamId, callback) => {
   });
 };
 
-// helper function to query DB to retrieve user name and points
-module.exports.getUserInfo = (userId, callback) => {
-  pool.query('SELECT * FROM app_user WHERE id_user = ($1)', [userId], (err, res) => {
-    if (err) {
-      console.log(err, 'there is an error getting the userInfo');
-      callback(err);
-    } else {
-      console.log('getuserInfo successful');
-      callback(null, res);
-    }
-  });
-};
-
 // helper function to query DB to retrieve user bets from acceptor and poster field
+// RETURNS wager amount, date, and foreign keys for game, acceptor and poster
 module.exports.getUserBets = (userId, callback) => {
-  pool.query('SELECT * FROM bet WHERE ($1) IN(id_user_acceptor, id_user_poster)', [userId], (err, res) => {
+  pool.query('SELECT * FROM bet WHERE ($1) IN (id_user_acceptor, id_user_poster)', [userId], (err, res) => {
     if (err) {
       console.log('there is an error getting the userbets');
       callback(err);
     } else {
       console.log('successfully getting user bets');
+      callback(null, res);
+    }
+  });
+};
+
+module.exports.getTeamById = (teamId, callback) => {
+  pool.query('SELECT * FROM team WHERE id_team = ($1)', [teamId], (err, res) => {
+    if (err) {
+      console.log('error getting teamsbyid');
+      callback(err);
+    } else {
+      console.log('successfully getting teamsbyid');
       callback(null, res);
     }
   });

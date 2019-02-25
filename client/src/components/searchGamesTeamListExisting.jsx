@@ -48,7 +48,7 @@ console.log(props);
   console.log(formattedGames);
 
   return (
-    <div className="teamBetList">
+    <div className="teamBetList" key={'list'}>
       <h3>Next Ten Games for the {currentTeam}</h3>
       { formattedGames.map(game => (
         <GameListEntry 
