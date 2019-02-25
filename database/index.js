@@ -164,6 +164,7 @@ module.exports.getUserBets = (userId, callback) => {
 // return array of objects
 
 // single object
+
 // { hometeam name
 //   away team name
 //   acceptor

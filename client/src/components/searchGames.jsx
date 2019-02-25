@@ -38,10 +38,10 @@ class Search extends React.Component {
 
   render() {
     const gameInfo = {
-      homeTeam: 'Cavaliers',
-      awayTeam: 'the other team',
+      homeTeam: 'Cleveland Cavaliers',
+      awayTeam: 'Detroit Pistons',
       teamId: '277',
-
+      date: '2019-03-02',
     };
     return (
       <div>

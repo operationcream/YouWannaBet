@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class Profile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      profile: {},
+    };
+  }
+
   componentWillMount() {
     this.setState({ profile: {} });
     const { auth } = this.props;
@@ -12,16 +19,16 @@ class Profile extends Component {
     } else {
       this.setState({ profile: auth.userProfile });
     }
-
     // send request to server to retrieve points by username
-    // axios.get(`/api/users/${this.state.profile.nickname}`)
-    axios.get(`/api/users/frank_enstein`)
+    axios.get(`/api/users/${this.state.profile.nickname}`)
+    // axios.get(`/api/users/frank_enstein`)
       .then((user) => {
-        const { points } = user.data[0];
+        const { points, id_user } = user.data[0];
         // console.log(points);
         this.setState({
           points,
         });
+        this.props.updateCurrentUser(points, id_user);
       })
       .catch((err) => {
         console.log(err, 'unable to get userpoints');
