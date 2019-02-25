@@ -42,7 +42,7 @@ class Search extends React.Component {
   }
 
   render() {
-    const { games, teams } = this.state;
+    const { games, teams, selection } = this.state;
     return (
       <div>
         <MuiThemeProvider>
@@ -86,6 +86,7 @@ class Search extends React.Component {
         <SearchGamesList 
           games={games}
           teams={teams}
+          selection={selection}
         />
       </div>
     );
