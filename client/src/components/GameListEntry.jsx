@@ -1,5 +1,4 @@
-let React = require('react');
-
+import React from 'react';
 
 const GameListEntry = ({ game, onClick }) => (
   <div className="game-list-entry">
