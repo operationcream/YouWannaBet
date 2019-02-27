@@ -3,17 +3,22 @@ const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const path = require('path');
 const db = require('../database');
 
 const app = express(feathers());
 const port = process.env.PORT || 3000;
+process.env.PWD = process.cwd();
 
-app.use(express.static(`${__dirname}/../client/dist`));
-
+// app.use(express.static(`${__dirname}/../client/dist`));
+app.use(express.static(path.join(__dirname, '/../client/dist')));
+// app.use(express.static(`${process.env.PWD}../client/dist`));
+ 
 // Set Express to use body-parser as a middleware //
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// app.use('/callback', express.static(`${process.env.PWD}/../client/dist`));
 app.use('/callback', express.static(`${__dirname}/../client/dist`));
 
 // Handles POST requests from Search Games //
@@ -225,8 +230,40 @@ app.get('/api/userBets/:userId', (req, res) => {
       opponent: 'frank_enstein',
       userWinnerChoice: 'Cleveland Cavaliers',
     },
+    {
+      date: '2/25/2018',
+      wager: 300,
+      team_away: 'Golden State Warriors',
+      team_home: 'Charlotte Hornets',
+      opponent: 'frank_enstein',
+      userWinnerChoice: 'Golden State Warriors',
+    },
+    {
+      date: '2/25/2018',
+      wager: 1000,
+      team_away: 'Philadelphia 76ers',
+      team_home: 'New Orleans Pelicans',
+      opponent: 'PollyPocket',
+      userWinnerChoice: 'New Orleans Pelicans',
+    },
+    {
+      date: '2/27/2018',
+      wager: 700,
+      team_away: 'Houston Rockets',
+      team_home: 'Charlotte Hornets',
+      opponent: 'PollyPocket',
+      userWinnerChoice: 'Houston Rockets',
+    },
+    {
+      date: '2/28/2018',
+      wager: 500,
+      team_away: 'Cleveland Cavaliers',
+      team_home: 'New York Knicks',
+      opponent: 'frank_enstein',
+      userWinnerChoice: 'Cleveland Cavaliers',
+    },
   ];
-  // res.send('AHHHHH')
+  res.send(userBets);
   // const { userId } = req.params;
   // db.getUserBets(userId, (err, userBets) => {
   //   const allUserBets = [];

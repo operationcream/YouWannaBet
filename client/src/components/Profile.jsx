@@ -32,7 +32,7 @@ class Profile extends Component {
     }
     // send request to server to retrieve points by username
     axios.get(`/api/users/${this.state.profile.nickname}`)
-    // axios.get(`/api/users/frank_enstein`)
+      // axios.get(`/api/users/frank_enstein`)
       .then((user) => {
         const { points, id_user } = user.data[0];
         // console.log(points);
@@ -55,7 +55,7 @@ class Profile extends Component {
           <h2> Welcome {profile.nickname} </h2>
         </Typography>
         <Typography component="p">
-          <h3> You currently have { points } points. Go check out some games!</h3>
+          <h3> You currently have {points} points. Go check out some games!</h3>
         </Typography>
       </Paper>
     );
